@@ -1,5 +1,7 @@
 <% provide(:title, "Top") %>
 <!DOCTYPE html>
+<meta charset = "utf-8">
+<link rel = "stylesheet" href = "attendance_page.scss">
 
 <html>
   <head>    
@@ -7,6 +9,17 @@
   </head>
   
   <body>
-    <h1>TOP PAGE</h1>
+    <div class = "container">
+      <div class = "row">
+        <div class = "col-md-10 col-md-offset-1">
+          <div class ="center jumbotron" id ="top-btn">
+            <h1>TOP PAGE</h1>
+            <%= link_to 'LOG IN',"#", class:"btn btn-primary btn-md form-acount"%>
+            <ul>アカウントの作成は<link_to "こちら","#", id:"login_btn">から</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </body>
 </html>

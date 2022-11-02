@@ -1,0 +1,16 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.center {
+  text-align:center;
+}
+
+#logo{
+  font-weight: bold;
+}
+
+#logo:hover{
+  color:#fff;
+  text-decoration: none;
+}
