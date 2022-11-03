@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221102135655) do
+ActiveRecord::Schema.define(version: 20221103053542) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20221102135655) do
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true #マイグレーションを追加して、バリデーションを設定している。名前は自動でついた。
   end
 
 end
