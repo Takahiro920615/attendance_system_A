@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20221103053542) do
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true #マイグレーションを追加して、バリデーションを設定している。名前は自動でついた。
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
