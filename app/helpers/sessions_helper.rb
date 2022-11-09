@@ -38,4 +38,16 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+  
+   # 記憶しているURL(またはデフォルトURL)にリダイレクトします。 機能していない
+  def redirect_back_or(default_url)
+    redirect_to(session[:forwarding_url] || default_url)
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLを記憶します。　機能していない
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+  
 end
