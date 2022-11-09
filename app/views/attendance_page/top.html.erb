@@ -15,7 +15,7 @@
           <div class ="center jumbotron" id ="top-btn">
             <h1>TOP PAGE</h1>
             <%= link_to 'LOG IN',"#", class:"btn btn-primary btn-md form-acount"%>
-            <ul>アカウントの作成は<link_to "こちら","#", id:"login_btn">から</ul>
+            <ul>アカウントの作成は<%=link_to "こちら", signup_path, id:"login_btn"%>から</ul>
           </div>
         </div>
       </div>
