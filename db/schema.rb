@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221112123958) do
+ActiveRecord::Schema.define(version: 20221112141312) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password"
     t.string "password_digest"
-    t.datetime "basic_time"
     t.datetime "designated_work_start_time"
     t.datetime "designated_work_end_time"
     t.boolean "superior"
@@ -26,6 +25,8 @@ ActiveRecord::Schema.define(version: 20221112123958) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
+    t.datetime "basic_time", default: "2022-11-11 23:00:00"
+    t.datetime "work_time", default: "2022-11-11 22:30:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
