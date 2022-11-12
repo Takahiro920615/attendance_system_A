@@ -11,8 +11,9 @@ ja:
           password_confirmation: パスワード再入力
           created_at: 作成日
           updated_at: 更新日
-          basic_time: 
+          basic_time: 基本時間
           designated_work_start_time: 始業指定時間
           designated_work_end_time: 終業指定時間
           superior: 指示者
+          department: 所属
 
