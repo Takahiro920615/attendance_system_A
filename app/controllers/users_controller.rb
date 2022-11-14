@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
   before_action :admin_user, only: [:destroy,:edit_basic_info,:update_basic_info]
+  before_action :set_one_month, only: :show
   def new
     @user = User.new
   end
@@ -26,8 +27,7 @@ class UsersController < ApplicationController
  
  
   def show
-    @first_day = Date.current.beginning_of_month
-    @last_day = @first_day.end_of_month
+  
   end
 
   def edit
