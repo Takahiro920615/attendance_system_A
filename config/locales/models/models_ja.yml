@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      attendance: 勤怠
     attributes:
         user:
           id: ID
@@ -17,4 +18,9 @@ ja:
           superior: 指示者
           department: 所属
           work_time: 勤務時間
-
+        attendance:
+          worked_on: 日付
+          started_at: 出勤時間
+          finished_at: 退勤時間
+          note: 備考
+          user: ユーザーID

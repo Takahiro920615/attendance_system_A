@@ -3,15 +3,15 @@
 <h1><%= @user.name %></h1>
 
 <div class = "show_body">
-  <table class = "table table-bordered table-condensed user-table">
+  <table class = "table table-bordered table-condensed table-hover" id= "table-attendaces">
     <thead>
       <tr>
-        <th>日付</th>
+        <th rowspan = "3">日付</th>
         <th rowspan = "3">曜日</th>
-        <th colspan = 11>実績</th>
-        <th colspan ="5">所定外勤務</th>
+        <th colspan = "11">実績</th>
+        <th colspan = "3" >所定外勤務</th>
       </tr>
-    </thead>
+   
       
       <tr>
         <td></td>
@@ -21,9 +21,7 @@
         <td>在社時間</td>
         <td>備考</td>
         <td colspan = 2>終了予定時間</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        
       </tr>
     
     
@@ -33,12 +31,8 @@
         <td>時</td>
         <td>分</td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td>時</td>
         <td>分</td>
-        <td></td>
         <td></td>
         <td></td>
         <td>時</td>
@@ -47,5 +41,29 @@
         <td>業務処理内容</td>
         <td>指示者確認印</td>
       </tr>
+    </thead>
+    
+    <tbody>
+      <% (@first_day..@last_day).each do |day| %>
+      <tr>
+        <td><%= l(day,format: :short) %></td>
+        <td><%= $days_of_the_week[day.wday] %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
