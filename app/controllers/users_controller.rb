@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only:[:show, :edit, :update,:destroy,:edit_basic_info,:update_basic_info]
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
-  before_action :admin_user, only: :destroy
+  before_action :admin_user, only: [:destroy,:edit_basic_info,:update_basic_info]
   def new
     @user = User.new
   end
