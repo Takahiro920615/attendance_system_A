@@ -1,17 +1,17 @@
 <% provide(:title, @user.name) %>
 
 <div class = "user_show_container">
-  <table class = "table table-bordered table-condensed table-hover">
+  <table class = "table table-bordered table-condensed table-hover user-table">
     <thead>
         <tr>  
           <th><%= link_to "⬅️️", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
-          <%= l(Date.current, format: :default)%>　時間管理表
+          <%= l(@first_day, format: :middle)%>　時間管理表
            <%= link_to "➡️",user_path(date: @first_day.next_month), class: "btn btn-info"%>
           </th>
-          
-          
-          <th>指定勤務開始時間　　<%= l(@user.designated_work_start_time, format: :time)%>
-          <p>指定勤務終了時間　　<%= l(@user.designated_work_end_time, format: :time) %></p></th>
+          <th>
+          <h5>指定勤務開始時間　　<%= l(@user.designated_work_start_time, format: :time)%></h5>
+          <h5><p>指定勤務終了時間　　<%= l(@user.designated_work_end_time, format: :time) %></p></h5>
+          </th>
           <th colspan= "3">基本時間　　<%=l(@user.basic_time, format: :time)%></th>
           <th>初日<%= l(@first_day, format: :short)%></th>
         </tr>
@@ -29,11 +29,13 @@
   </table>
 </div>
 
+<!----- ボタン箇所--->
  <div class = "btn-user-show">
    <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>
    <%= link_to "CSV出力", "#", class: "btn btn-primary"%>
    <p><%= link_to "勤怠修正ログ","#", class: "btn btn-primary btn-md"%></p>
   </div>
+
 
 <div class = "show_body">
   <table class = "table table-bordered table-condensed table-hover" id= "table-attendaces">
@@ -43,7 +45,7 @@
         <th rowspan = "3">日付</th>
         <th rowspan = "3">曜日</th>
         <th colspan = "8">実績</th>
-        <th colspan = "8" >所定外勤務</th>
+        <th colspan = "7" >所定外勤務</th>
       </tr>
       <tr>
         <td colspan = "4">出社</td>
@@ -87,32 +89,34 @@
             <td></td>
             <td></td>
             <td></td>
-            <td>
-              <% if day.started_at.present? && day.finished_at.present? %>
-                <%= working_times(day.started_at, day.finished_at) %>
-              <% end %>
-            </td>
-            <td><%= day.note %></td>
             <td></td>
           </tr>
           <% end %>
         </tbody>
-      </table>
-    
-  </div>  
-  <%= @worked_sum %>
-  
-  <tfoot>
-    <tr>
-      <td rowspan = "2">テスト</td>
-      <td colspan = "2"><%= format_basic_info(@user.work_time).to_f* @worked_sum %></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-    
-    </tr>
-  </tfoot>
- </table> 
- 
+        <tfoot>
+          <%= form_with(model:@user,url: "#", local: true, method: :patch) do |f| %>
+         <tr>
+          <td></td>
+          <td></td>
+          <td colspan ="6"></td>
+          <td colspan = "7"></td>
+          <td>
+            <%= link_to "所属長承認　末", "#"%>
+            <p>
+              <div>
+                <select>
+                  <option>上長A</option>
+                  <option>上長B</option>
+                </select>
+              </div>
+            </p>
+            <p>
+            <%= f.submit "申請", class: "btn btn-primary" %>
+            </p>
+            
+          </td>
+        </tr>
+        <% end %>
+        </tfoot>    
+  </table> 
 </div>
