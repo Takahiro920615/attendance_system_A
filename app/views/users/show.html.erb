@@ -1,11 +1,38 @@
 <% provide(:title, @user.name) %>
 
-<h1><%= @user.name %></h1>
+<div class = "user_show_container">
+  <table class = "table table-bordered table-condensed table-hover">
+    <thead>
+        <tr>  
+          <th><%= link_to "⬅️️", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
+          <%= l(Date.current, format: :default)%>　時間管理表
+           <%= link_to "➡️",user_path(date: @first_day.next_month), class: "btn btn-info"%>
+          </th>
+          
+          
+          <th>指定勤務開始時間　　<%= l(@user.designated_work_start_time, format: :time)%>
+          <p>指定勤務終了時間　　<%= l(@user.designated_work_end_time, format: :time) %></p></th>
+          <th colspan= "3">基本時間　　<%=l(@user.basic_time, format: :time)%></th>
+          <th>初日<%= l(@first_day, format: :short)%></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>所属：<%= @user.department %></td>
+          <td>氏名：<%= @user.name %></td>
+          <td>コード</td>
+          <td><%= @user.id%></td>
+          <td>出勤日数<%= @worked_on%></td>
+          <td>締日<%= l(@last_day, format: :short)%></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 
  <div class = "btn-user-show">
-    <%= link_to "⬅️前月へ", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
-    <%= link_to "１ヶ月分の勤怠編集へ", attendances_edit_one_month_user_path(@user), class: "btn btn-success"%>
-    <%= link_to "➡️次月へ",user_path(date: @first_day.next_month), class: "btn btn-info"%>
+   <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>
+   <%= link_to "CSV出力", "#", class: "btn btn-primary"%>
+   <p><%= link_to "勤怠修正ログ","#", class: "btn btn-primary btn-md"%></p>
   </div>
 
 <div class = "show_body">
