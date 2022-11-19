@@ -1,0 +1,21 @@
+<% provide(:title, "Workers") %>
+<div>
+  <table class = "table table-bordered table-condensed table-hover">
+    <% if @user.worked_on.present? && finished_at.blank %>
+      <% @users.each do |user| %>
+       <thead>
+         <tr>
+           <th>社員番号</th>
+           <th>名前</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td><%= @user.id%></td>
+           <td><%= @user.name%></td>
+         </tr>
+       </tbody>
+      <% end %>
+    <% end %>
+  </table>
+</div>
