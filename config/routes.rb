@@ -15,6 +15,7 @@ Rails.application.routes.draw do
    patch 'attendances/update_one_month'
    end
  resources :attendances, only: :update
+ resources :going_to_work, only: :show
  
  end
 end
