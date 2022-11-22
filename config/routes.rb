@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'base/index'
+
   root 'attendance_page#top'
   get 'workers/show'
 
@@ -20,4 +22,8 @@ Rails.application.routes.draw do
  resources :attendances, only: :update do
  end
  end
+ 
+ resources :bases 
+  
+
 end
