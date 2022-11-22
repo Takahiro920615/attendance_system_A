@@ -1,7 +1,6 @@
 class WorkersController < ApplicationController
-  
   def show
-    @user = User.all
-      
+    worker = Worker.all
+    @workers = worker.all.includes(:users,:attendances)
   end
 end

@@ -1,25 +1,21 @@
 <% provide(:title, "Workers") %>
-
-<h1>出勤者一覧</h1>
-<div class = "col-md-10 col-md-offset-1">
+<div>
   <table class = "table table-bordered table-condensed table-hover">
-      
+   
+      <% @users.each do |user| %>
        <thead>
          <tr>
            <th>社員番号</th>
            <th>名前</th>
          </tr>
        </thead>
-      <% @workers.each do |worker| %>
-       <% worker.users.each do |user|%>
        <tbody>
          <tr>
-           <td>山田電気</td>
-           <td><%= user.name %></td>
+           <td><%= @user.id%></td>
+           <td><%= @user.name%></td>
          </tr>
        </tbody>
-       <% end %>
       <% end %>
+  
   </table>
 </div>
-

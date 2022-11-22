@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  get '/signup', to:'users#new'
 
   root 'attendance_page#top'
-  
+  get 'workers/show'
+
+  get '/signup', to:'users#new'
+
   get '/login', to:'sessions#new'
   post '/login', to:'sessions#create'
   delete 'logout', to:'sessions#destroy'
 
+ 
  resources :users do
    member do
    get 'edit_basic_info'
@@ -15,8 +18,6 @@ Rails.application.routes.draw do
    patch 'attendances/update_one_month'
    end
  resources :attendances, only: :update do
- resources :workers, only: :show
  end
- 
  end
 end
