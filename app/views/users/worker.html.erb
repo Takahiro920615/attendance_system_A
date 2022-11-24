@@ -1,25 +1,24 @@
 <% provide(:title, "Workers") %>
-
-<h1>出勤者一覧</h1>
-<div class = "col-md-10 col-md-offset-1">
+<h1>出勤中社員一覧</h1>
+<div>
   <table class = "table table-bordered table-condensed table-hover">
-      
        <thead>
          <tr>
            <th>社員番号</th>
            <th>名前</th>
          </tr>
        </thead>
-      <% @workers.each do |worker| %>
-       <% worker.users.each do |user|%>
        <tbody>
+       <% @worker_users.each do |user|%>
+        <% user.attendances.each do |attendance| %>
+          <% if (Date.current == attendance.worked_on) && attendance.started_at != nil && attendance.finished_at == nil %>
          <tr>
-           <td>山田電気</td>
+           <td></td>
            <td><%= user.name %></td>
          </tr>
-       </tbody>
+           <% end %>
+        <% end %>
        <% end %>
-      <% end %>
+      </tbody>
   </table>
 </div>
-

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'base/index'
 
   root 'attendance_page#top'
-  get 'workers/show'
+  
 
   get '/signup', to:'users#new'
 
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
    patch 'update_basic_info'
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
+   get 'worker'
    end
  resources :attendances, only: :update do
  end

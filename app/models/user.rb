@@ -1,6 +1,5 @@
 class User < ApplicationRecord
  has_many :attendances, dependent: :destroy
- belongs_to :worker
   validates :name, presence: true
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
@@ -45,4 +44,6 @@ class User < ApplicationRecord
  def forget
    update_attribute(:remember_digest, nil)
  end
+ 
+ 
 end

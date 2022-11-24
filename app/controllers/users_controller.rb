@@ -60,6 +60,14 @@ class UsersController < ApplicationController
     end
     redirect_to users_url
   end
+  
+  def worker
+   Attendance.where.not(started_at: nil).each do |attendance|
+       if (Date.current == attendance.worked_on) && attendance.finished_at. nil?
+           @worker_users = User.all.includes(:attendances)
+       end
+       end
+  end
 
 
  private
@@ -72,5 +80,9 @@ class UsersController < ApplicationController
     
     def basic_info_params
       params.require(:user).permit(:department, :basic_time, :work_time)
+    end
+    
+    def workers_member
+       @user.attendances.where(started_at:present, finished_at:blank)
     end
 end
