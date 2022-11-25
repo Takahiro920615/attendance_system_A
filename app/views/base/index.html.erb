@@ -11,13 +11,15 @@
           <th>拠点名</th>
           <th>勤怠種類</th>
         </tr>
+        <% @bases.each do |base|%>
         <tr>
-          <th colspan = "2"></th>
-          <th colspan = "2"></th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th colspan = "2"><%= link_to "修正", "#" , class: "btn btn-primary" %></th>
+          <th colspan = "2"><%= link_to "削除", "#", class: "btn btn-primary"%></th>
+          <th><%= base.base_no %></th>
+          <th><%= base.base_name%></th>
+          <th><%= base.attendance_type%></th>
         </tr>
+        <% end %>
         <tr>
           <th colspan = "7"></th>
         </tr>
@@ -27,7 +29,7 @@
     <table class = "table table-condensed table-bordered table-hover">
         <tbody>
           <tr>
-            <td></td>
+            <td><%= link_to "拠点情報追加", "#", class: "btn btn-primary" %></td>
           </tr>
         </tbody>
     </table>
