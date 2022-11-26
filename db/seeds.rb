@@ -20,8 +20,9 @@ User.create!(name: "クウガ",
                password: password,
                password_confirmation: password)
                
-
-Base.create!(base_no: "#{n+1}",
-             base_name: "拠点#{n+1}",
-             attendance_type: "出勤")
 end
+               
+
+Base.create!(base_no: "1",
+             base_name: "拠点A",
+             attendance_type: "出勤")
