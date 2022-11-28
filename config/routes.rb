@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
-
-  get 'base/index'
-
   root 'attendance_page#top'
   
-
   get '/signup', to:'users#new'
-
   get '/login', to:'sessions#new'
   post '/login', to:'sessions#create'
   delete 'logout', to:'sessions#destroy'
@@ -24,7 +19,8 @@ Rails.application.routes.draw do
  end
  end
  
- resources :bases 
+ resources :bases do
+ end
   
 
 end
