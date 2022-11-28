@@ -12,6 +12,9 @@ class User < ApplicationRecord
   validates :department, length: { in: 2..30 }, allow_blank: true
   validates :basic_time, presence: true
   validates :work_time, presence: true
+  validates :base_no, presence: true
+  validates :base_name, presence: true
+  validates :attendance_type, presence: true
   
   
  has_secure_password

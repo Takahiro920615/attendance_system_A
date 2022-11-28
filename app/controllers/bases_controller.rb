@@ -8,7 +8,7 @@ class BasesController < ApplicationController
     @base = Base.new(base_params)
      if @base.save
        flash[:success] = "拠点情報の作成に成功しました。"
-       redirect_to base_index_url
+       redirect_to bases_url
      end
   end
   
