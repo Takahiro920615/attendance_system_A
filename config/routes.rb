@@ -19,8 +19,8 @@ Rails.application.routes.draw do
  end
  end
  
- resources :bases do
- end
+ resources :bases, only:[:new, :index, :create, :edit, :update, :destroy]
+
   
 
 end
