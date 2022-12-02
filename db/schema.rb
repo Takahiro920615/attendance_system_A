@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221122062347) do
+ActiveRecord::Schema.define(version: 20221202061031) do
+
+  create_table "applies", force: :cascade do |t|
+    t.date "one_month"
+    t.string "application_content"
+    t.string "application_to_superior"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_applies_on_user_id"
+  end
 
   create_table "attendances", force: :cascade do |t|
     t.date "worked_on"
@@ -36,16 +46,16 @@ ActiveRecord::Schema.define(version: 20221122062347) do
     t.string "email"
     t.string "password"
     t.string "password_digest"
-    t.boolean "superior"
-    t.boolean "admin"
+    t.boolean "superior", default: false
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2022-11-27 23:00:00"
-    t.datetime "work_time", default: "2022-11-27 22:30:00"
-    t.datetime "designated_work_start_time", default: "2022-11-27 23:00:00"
-    t.datetime "designated_work_end_time", default: "2022-11-28 10:00:00"
+    t.datetime "basic_time", default: "2022-12-01 23:00:00"
+    t.datetime "work_time", default: "2022-12-01 22:30:00"
+    t.datetime "designated_work_start_time", default: "2022-12-01 23:00:00"
+    t.datetime "designated_work_end_time", default: "2022-12-02 10:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

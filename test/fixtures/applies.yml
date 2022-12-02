@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  one_month: 2022-12-02
+  application_content: MyString
+  application_to_superior: MyString
+  user: one
+
+two:
+  one_month: 2022-12-02
+  application_content: MyString
+  application_to_superior: MyString
+  user: two

@@ -23,12 +23,12 @@ class UsersController < ApplicationController
  
  def index
    @users = User.paginate(page: params[:page])
-   
  end
  
  
   def show
    @worked_sum = @attendances.where.not(started_at:nil).count
+   @attendance_app = User.find_by(id: 1)
   end
 
   def edit
@@ -68,6 +68,8 @@ class UsersController < ApplicationController
        end
    end
   end
+  
+  
 
 
  private

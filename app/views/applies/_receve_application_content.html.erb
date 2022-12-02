@@ -1,0 +1,44 @@
+<div class = "modal-dialog modal-lg modal-dialog-center">
+  <div class = "modal-content">
+    <div class = "modal-header">
+      <button type = "button" class = "close" data-dismiss = "modal" aria-label="Close">
+        <span aria-hidden = "true">×</span>
+      </button>
+      <h1 class="modal-title">テストからの１ヶ月分の勤怠申請</h1>
+    </div>
+    <div class ="modal-body">
+      <div class ="row">
+        <div class ="col-md-10 col-md-offset-3">
+          <table class = "#">
+            <table class = "table table-bordered table-condence table-striped">
+            <thead>
+              <tr>
+                <th>月</th>
+                <th>指示者確認印</th>
+                <th>変更</th>
+                <th>勤怠確認</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= l(@first_day, format: :month)%></td>
+                <td>
+                  <select>
+                    <option>なし</option>
+                    <option>申請中</option>
+                    <option>承認</option>
+                    <option>否認</option>
+                  </select>
+                </td>
+              　<td><%= f.check_box ":#"%></td>
+              　<td><%= link_to "確認","#" class: "btn btn-sm btn-primary"%></td>
+              </tr>
+            </tbody>
+           </table>
+          </table>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

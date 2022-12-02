@@ -29,6 +29,13 @@
   </table>
 </div>
 
+<div>
+  <% if @user.superior && current_user == @user %>
+    <p>[所属長承認申請のお知らせ]<%= link_to "通知が件あります。",applies_receve_application_content_user_path(@user), remote: true%></p>
+  <% end %>
+</div>
+
+
 <!----- ボタン箇所--->
  <div class = "btn-user-show">
    <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>
@@ -120,3 +127,6 @@
         </tfoot>    
   </table> 
 </div>
+
+<div id = "receve_application_content" class =" modal fade" tabindex="-1" role="dialog" aria-hidden="true" ></div>
+ 

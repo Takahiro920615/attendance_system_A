@@ -20,13 +20,10 @@ class BasesController < ApplicationController
   end
    
   def show
- 
   end
   
-
   def edit
    @base = Base.find(params[:id])
-  
   end
   
   def update
@@ -34,14 +31,11 @@ class BasesController < ApplicationController
      if @base.update_attributes(base_params)
        flash[:succsss] = "拠点情報を更新しました。"
     redirect_to bases_url
-     
      else
      render :edit
      end
   end
     
- 
-  
   def destroy
    @base = Base.find_by(params[:id])
     @base.destroy
@@ -49,11 +43,9 @@ class BasesController < ApplicationController
     redirect_to bases_url
   end
  
-  
   private
   
    def base_params
      params.require(:base).permit(:base_no, :base_name, :attendance_type )
    end
-
 end
