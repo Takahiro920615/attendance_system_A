@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class ="modal-body">
-    　　<%= form_with(modal: @user, url: applies_apply_application_content_user_path, local: true, method: :patch) do |f| %>
+      <%= form_with(modal: @user, url: applies_apply_application_content_user_path, local: true, method: :patch) do |f| %>
           <% @receve_application_content.each do |key, receve_application_content| %>
           <table class = "table table-bordered request-modal">
             
@@ -27,8 +27,8 @@
               <tr>
                 <td><%= day.one_month.month%></td>
                 <td><%= apply.select :application_content, Apply.application_content.key.to_a, {}, class: "form-control"%></td>
-              　<td><%= apply.check_box :change, {class: "check_box"}, true, false %></td>
-              　<td><%= link_to "確認",user_path(id: @member, date.one_month), class: "btn btn-primary btn-#{yield(:class_text)}"%></td>
+                <td><%= apply.check_box :change, {class: "check_box"}, true, false %></td>
+                <td><%= link_to "確認",user_path(id: @member, date.one_month), class: "btn btn-primary btn-#{yield(:class_text)}"%></td>
               </tr>
               <% end %>
               <% end %>

@@ -100,19 +100,23 @@
           </tr>
           <% end %>
         </tbody>
+       
         <tfoot>
-          <%= form_with(model:@user,url: "#", local: true, method: :patch) do |f| %>
          <tr>
           <td></td>
           <td></td>
           <td colspan ="6"></td>
           <td colspan = "7"></td>
+          
+          <% if current_user == @user %>
           <td>
             <%= form_with(model: @user, url: applies_request_one_month_user_path(@user,date: @first_day), method: :patch, local: true) do |f| %>
-              <%= f.fields_for "applies[]", @one_month_attendance do |apply|%>
+              <%= f.fields_for :applies, @one_month_attendance do |apply|%>
                 <%= apply.hidden_field :one_month_request_status, value: "申請中"%>
                 <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blanl => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
             <% end %>
+            
+            
             <% end %>
           </td>
         </tr>
