@@ -26,6 +26,9 @@ class ApplicationController < ActionController::Base
       redirect_to root_url unless current_user.admin?
     end
     
+   def select_superiors
+   @superiors = User.all.where(superior: true).where.not(id: @user)
+   end
 
  def set_one_month
     @first_day = params[:date].nil? ?
@@ -34,6 +37,8 @@ class ApplicationController < ActionController::Base
     one_month = [*@first_day..@last_day] # 対象の月の日数を代入します。
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    @one_month_attendance = @user.applies.where(one_month: @first_day)
+   
 
     unless one_month.count == @attendances.count # それぞれの件数（日数）が一致するか評価します。
       ActiveRecord::Base.transaction do # トランザクションを開始します。

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
    get 'worker'
+   patch 'applies/request_one_month'
    get 'applies/receve_application_content'
    patch 'applies/apply_application_content'
    

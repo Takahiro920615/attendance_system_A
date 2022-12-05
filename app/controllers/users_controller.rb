@@ -4,32 +4,37 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
   before_action :admin_user, only: [:destroy,:edit_basic_info,:update_basic_info]
   before_action :set_one_month, only: :show
-  def new
-    @user = User.new
-  end
+  before_action :select_superiors, only: :show
   
- def create
-   @user = User.new(user_params)
-   if @user.save
-     log_in @user
-     flash[:success] = "新規作成に成功しました。"
-     redirect_to @user
-      
-   else
-     flash.now[:danger] = "ユーザー登録に失敗しました"
-     render :new
+   def show
+   @worked_sum = @attendances.where.not(started_at:nil).count
+   @one_month_attendance = @one_month_attendance.find_by(one_month: @first_day)
    end
- end
+  
+  
+   def new
+     @user = User.new
+   end
+  
+   def create
+     @user = User.new(user_params)
+     if @user.save
+       log_in @user
+       flash[:success] = "新規作成に成功しました。"
+       redirect_to @user
+      
+     else
+       flash.now[:danger] = "ユーザー登録に失敗しました"
+       render :new
+     end
+   end
  
  def index
    @users = User.paginate(page: params[:page])
  end
  
  
-  def show
-   @worked_sum = @attendances.where.not(started_at:nil).count
-   @attendance_app = User.find_by(id: 1)
-  end
+ 
 
   def edit
   end

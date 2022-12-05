@@ -31,7 +31,7 @@
 
 <div>
   <% if @user.superior && current_user == @user %>
-    <p>[所属長承認申請のお知らせ]<%= link_to "通知が件あります。",applies_receve_application_content_user_path(@user), remote: true%></p>
+    <p>[所属長承認申請のお知らせ]<%= link_to "通知が件あります。",applies_receve_application_content_user_path(@user), remote: true %></p>
   <% end %>
 </div>
 
@@ -108,19 +108,12 @@
           <td colspan ="6"></td>
           <td colspan = "7"></td>
           <td>
-            <%= link_to "所属長承認　末", "#"%>
-            <p>
-              <div>
-                <select>
-                  <option>上長A</option>
-                  <option>上長B</option>
-                </select>
-              </div>
-            </p>
-            <p>
-            <%= f.submit "申請", class: "btn btn-primary" %>
-            </p>
-            
+            <%= form_with(model: @user, url: applies_request_one_month_user_path(@user,date: @first_day), method: :patch, local: true) do |f| %>
+              <%= f.fields_for "applies[]", @one_month_attendance do |apply|%>
+                <%= apply.hidden_field :one_month_request_status, value: "申請中"%>
+                <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blanl => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
+            <% end %>
+            <% end %>
           </td>
         </tr>
         <% end %>
@@ -128,5 +121,6 @@
   </table> 
 </div>
 
-<div id = "receve_application_content" class =" modal fade" tabindex="-1" role="dialog" aria-hidden="true" ></div>
+<div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
  
