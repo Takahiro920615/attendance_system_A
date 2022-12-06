@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   
    def show
    @worked_sum = @attendances.where.not(started_at:nil).count
+   @application_content = Apply.where(application_to_superior: @user.id, application_content: "申請中")
    @one_month_attendance = @one_month_attendance.find_by(one_month: @first_day)
+   
    end
   
   

@@ -18,7 +18,7 @@
     </thead>
     <tbody>
         <tr>
-          <td>所属：<%= @user.department %></td>
+          <td>所属：<%= @user.department.present? ? @user.department: "未所属" %></td>
           <td>氏名：<%= @user.name %></td>
           <td>コード</td>
           <td><%= @user.id%></td>
@@ -31,7 +31,9 @@
 
 <div>
   <% if @user.superior && current_user == @user %>
-    <p>[所属長承認申請のお知らせ]<%= link_to "通知が件あります。",applies_receve_application_content_user_path(@user), remote: true %></p>
+    <p>[所属長承認申請のお知らせ]<%= link_to "通知#{@application_content.count}件あります。",applies_request_one_month_user_path(@user), remote: true,
+       class: "reserve_request_link" if @application_content.present? %>
+    </p>
   <% end %>
 </div>
 
@@ -110,14 +112,20 @@
           
           <% if current_user == @user %>
           <td>
-            <%= form_with(model: @user, url: applies_request_one_month_user_path(@user,date: @first_day), method: :patch, local: true) do |f| %>
+            <%= form_with(model: @user, url: applies_request_one_month_user_path(date: @first_day), method: :patch, local: true) do |f| %>
               <%= f.fields_for :applies, @one_month_attendance do |apply|%>
-                <%= apply.hidden_field :one_month_request_status, value: "申請中"%>
-                <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blanl => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
-            <% end %>
-            
-            
-            <% end %>
+                <%= apply.hidden_field :application_content, value: "申請中"%>
+                <%= apply.collection_select :application_to_superior, @superiors, :id, :name, {:inclide_blanl => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
+                  <% end %>
+                  
+                  <% if @one_month_attendance.application_content == "否認" || application_content == "承認" %>
+                    <%= f.submit "再申請", data: { confirm: "再申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
+                  <% elsif @one_month_attendance.application_content == "申請中" %>
+                    <%= f.submit "申請先変更", data: { confirm: "申請先を変更してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
+                  <% else  @one_month_attendance.application_content == "申請" %>
+                    <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
+                  <% end %>  
+              <% end %>
           </td>
         </tr>
         <% end %>

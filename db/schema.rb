@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20221205000329) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
-    t.integer "application_content"
+    t.integer "application_content", default: 0, null: false
     t.integer "application_to_superior"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 20221205000329) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2022-12-01 23:00:00"
-    t.datetime "work_time", default: "2022-12-01 22:30:00"
-    t.datetime "designated_work_start_time", default: "2022-12-01 23:00:00"
-    t.datetime "designated_work_end_time", default: "2022-12-02 10:00:00"
+    t.datetime "basic_time", default: "2022-12-05 23:00:00"
+    t.datetime "work_time", default: "2022-12-05 22:30:00"
+    t.datetime "designated_work_start_time", default: "2022-12-05 23:00:00"
+    t.datetime "designated_work_end_time", default: "2022-12-06 10:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
