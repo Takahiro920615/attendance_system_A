@@ -1,4 +1,5 @@
 class AppliesController < ApplicationController
+  before_action :set_one_month
   before_action :select_superiors
   
   INVALID_ERROR_MESSAGE = "無効な入力があったっ為、更新をキャンセルしました。"
@@ -8,7 +9,7 @@ class AppliesController < ApplicationController
      one_month_request_params.each do |id, item|
        if params[:user][:applies][id][:application_to_superior].blank?
          flash[:danger]="上長を選択してください"
-         redirect_touser_url(date: params[:date]) and return
+         redirect_to user_url(date: params[:date]) and return
        else
          one_month_request = Apply.find(id)
          one_month_request.update_attributes!(item)
@@ -17,7 +18,7 @@ class AppliesController < ApplicationController
      end
    end
    flash[:success] = "#{@superior.name}に１ヶ月分の勤怠申請をしました。"
-   redirect_to user_url (date: params[:date])
+   redirect_to user_url(date: params[:date])
  rescue ActiveRecord::RecordInvalid
    flash[:danger] =　INVALID_ERROR_MESSAGE
    redirect_to user_url(date: params[:date])
@@ -35,6 +36,10 @@ class AppliesController < ApplicationController
 end
 
 private
+
+  def one_month_request_params
+    params.require(:user).permit(applies: [:one_month_boss, :one_month_request_status, :id ])[:applies]
+  end
  
  
  

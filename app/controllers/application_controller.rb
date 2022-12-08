@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     @one_month_attendance = @user.applies.where(one_month: @first_day)
+  
    
 
     unless one_month.count == @attendances.count # それぞれの件数（日数）が一致するか評価します。
