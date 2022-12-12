@@ -40,3 +40,5 @@ end
 Base.create!(base_no: "1",
              base_name: "拠点A",
              attendance_type: "出勤")
+             
+

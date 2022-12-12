@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     one_month = [*@first_day..@last_day] # 対象の月の日数を代入します。
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
-    @one_month_attendance = @user.applies.where(one_month: @first_day)
+    @one_month_attendance = @user.applies.where(one_month: @first_day..@last_day).order(:one_month)
   
    
 

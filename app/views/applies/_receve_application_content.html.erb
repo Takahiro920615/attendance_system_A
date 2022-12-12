@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class ="modal-body">
-      <%= form_with(modal: @user, url: applies_apply_application_content_user_path, local: true, method: :patch) do |f| %>
+      <%= form_with(model: @user, url: applies_apply_application_content_user_path, local: true, method: :patch) do |f| %>
           <% @receve_application_content.each do |key, receve_application_content| %>
           <table class = "table table-bordered request-modal">
             

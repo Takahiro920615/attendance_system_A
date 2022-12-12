@@ -38,8 +38,10 @@ end
 private
 
   def one_month_request_params
-    params.require(:user).permit(applies: [:one_month_boss, :one_month_request_status, :id ])[:applies]
+    params.require(:user).permit(applies: [:one_month, :one_month_boss, :one_month_request_status, :id ])[:applies]
   end
+  
+  
  
  
  
