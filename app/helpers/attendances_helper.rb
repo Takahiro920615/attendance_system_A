@@ -9,7 +9,7 @@ module AttendancesHelper
     return false
     end 
     
-    def working_times(start, finish)
+    def working_times(start, finish, spread)
       format("%.2f",(((finish - start)/60)/60))
     end
 end

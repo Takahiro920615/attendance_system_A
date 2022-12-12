@@ -17,6 +17,8 @@ Rails.application.routes.draw do
    patch 'applies/request_one_month'
    get 'applies/receve_application_content'
    patch 'applies/apply_application_content'
+   get 'attendances/receive_change_attendance'
+   patch 'attendances/update_change_attendance'
    
    end
   resources :attendances, only: :update do

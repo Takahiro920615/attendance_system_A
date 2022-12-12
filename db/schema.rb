@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221205000329) do
+ActiveRecord::Schema.define(version: 20221212063339) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20221205000329) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "before_started_at"
+    t.datetime "before_finished_at"
+    t.datetime "after_started_at"
+    t.datetime "after_finished_at"
+    t.integer "edit_attendance_request_status"
+    t.integer "overtime_request_status"
+    t.boolean "change"
+    t.integer "edit_attendance_boss"
+    t.boolean "spread_day", default: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
