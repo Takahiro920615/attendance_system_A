@@ -31,7 +31,7 @@
 
 <div>
   <% if @user.superior && current_user == @user %>
-    <p>[所属長承認申請のお知らせ]<%= link_to "通知が１件あります。",attendances_receive_change_attendance_user_path(@user), remote: true,
+    <p>[所属長承認申請のお知らせ]<%= link_to "通知が#{@one_month_requests.count}件あります。",applies_receive_one_month_request_user_path(@user), remote: true,
        class: "reserve_request_link" %>
     </p>
   <% end %>
@@ -114,8 +114,8 @@
           <td>
             <%= form_with(model: @user, url: applies_request_one_month_user_path(date: @first_day), method: :patch, local: true) do |f| %>
               <%= f.fields_for :applies, @one_month_attendance do |apply|%>
-               <%= apply.hidden_field :application_content, value: "申請中" %>
-                  <%= apply.collection_select :application_to_superior, @superiors, :id, :name, {:inclide_blank => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
+               <%= apply.hidden_field :one_month_request_status, value: "申請中" %>
+                  <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blank => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
                   <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
                 <% unless @one_month_attendance.nil? %>
 

@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221212063339) do
+ActiveRecord::Schema.define(version: 20221215124101) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
-    t.integer "application_content", default: 0, null: false
-    t.integer "application_to_superior"
+    t.integer "one_month_request_status", default: 0, null: false
+    t.integer "one_month_boss"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

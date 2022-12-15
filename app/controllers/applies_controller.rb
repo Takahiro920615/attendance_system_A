@@ -25,8 +25,8 @@ class AppliesController < ApplicationController
  end
 
   
-  def receve_application_content
-  @receve_application_content = Apply.order(:one_month).where(application_to_superior: @user.id, application_content: "申請中").group_by(&:user_id)
+  def receive_one_month_request
+  @receive_one_month_requests = Apply.order(:one_month).where(one_month_boss: @user.id, one_month_request_status: "申請中").group_by(&:user_id)
   end
 
   def apply_application_content

@@ -6,14 +6,14 @@
       </button>
     </div>
     <div class ="modal-body">
-      <%= form_with(model: @user, url: applies_apply_application_content_user_path, local: true, method: :patch) do |f| %>
-          <% @receve_application_content.each do |key, receve_application_content| %>
+      <%= form_with(model: @user, url: applies_decision_one_month_request_user_path, local: true, method: :patch) do |f| %>
+          <% @receive_one_month_requests .each do |key, receive_one_month_request| %>
           <table class = "table table-bordered request-modal">
             
             <thead>
               <tr>
                 <% @member = User.find(key)%>
-                <h1><%= @member.name%>から１ヶ月分の勤怠申請</h1>
+                <h1 class: "modal-title"><%= @member.name %>から１ヶ月分の勤怠申請</h1>
                 <th>月</th>
                 <th>指示者確認印</th>
                 <th>変更</th>
@@ -30,11 +30,10 @@
                 <td><%= apply.check_box :change, {class: "check_box"}, true, false %></td>
                 <td><%= link_to "確認",user_path(id: @member, date.one_month), class: "btn btn-primary btn-#{yield(:class_text)}"%></td>
               </tr>
-              <% end %>
-              <% end %>
+             <% end %>
+            <% end %>
             </tbody>
            </table>
           <% end %>
-        <% end %>
     </div>
   </div>
