@@ -2,7 +2,7 @@
 <%= form_with(model:@user, url:attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f|%>
 <div>
   <h1>勤怠編集画面</h1>
-    <table class = "table table-bordered table-condenced table-hover" id: "table-attendances">
+    <table class = "table table-bordered table-condensed table-hover" id="table-attendances">
       <thead>
         <tr>
           <th>日付</th>
@@ -23,11 +23,11 @@
                 <td><%= l(day.worked_on, format: :short)%></td>
                 <td><%= $days_of_the_week[day.worked_on.wday] %></td>
               <% if Date.current < day.worked_on %>
-                <td><%= attendance.time_field :started_at,readonly: true, class: "form-control" %></td>
+                <td><%= attendance.time_field :started_at, readonly: true, class: "form-control" %></td>
                 <td><%= attendance.time_field :finished_at,readonly: true, class: "form-control" %></td>
               <% else %>
-                <td><%= attendance.time_field :after_started_at, readonly: true, class: "form-control"%></td>
-                <td><%= attendance.time_field :after_finished_at, readonly: true, class: "form-control"%></td>
+                <td><%= attendance.time_field :after_started_at, class: "form-control"%></td>
+                <td><%= attendance.time_field :after_finished_at, class: "form-control"%></td>
                 <% if day.before_started_at.nil? && day.edit_attendance_request_status == "承認" %>
                   <%= attendance.hidden_field :before_started_at, value: day.started_at %>
                   <%= attendance.hidden_field :before_finished_at, value: day.finished_at %>
@@ -53,7 +53,6 @@
   </div>
     <div class= "center">
       <%= f.submit "編集を保存する", class: "btn btn-lg btn-primary" %>
-      <%= link_to "戻る", user_path(date: @first_day), class: "btn btn-lg btn-default" %>
+      <%= link_to "戻る", user_path(date: @first_day), class: "btn btn-lg btn-primary" %>
     </div>
-    <% end %>
-</div>
+<% end %>

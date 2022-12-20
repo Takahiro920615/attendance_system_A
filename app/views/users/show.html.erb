@@ -32,7 +32,7 @@
 <div>
   <% if @user.superior && current_user == @user %>
     <p>[所属長承認申請のお知らせ]<%= link_to "通知が#{@one_month_requests.count}件あります。",applies_receive_one_month_request_user_path(@user), remote: true,
-       class: "reserve_request_link" %>
+       class: "receive-request-link" %>
     </p>
   <% end %>
 </div>
@@ -72,21 +72,21 @@
         <td colspan="2"></td>
         <td>時</td>
         <td>分</td>
-      　<td>時</td>
-      　<td>分</td>
+        <td>時</td>
+        <td>分</td>
       </tr>
     </thead>
         <tbody>
           <% @attendances.each do |day| %>
           <tr>
-          　<td><%= link_to '残業指示', "#", class: "btn btn-primary"%></td>
+            <td><%= link_to '残業指示', "#", class: "btn btn-primary"%></td>
             <td><%= l(day.worked_on,format: :short) %></td>
             <td><%= $days_of_the_week[day.worked_on.wday] %></td>
             <td><%= l(day.started_at, format: :hour) if day.started_at.present? %></td>
             <td><%= l(day.started_at.floor_to(15.minutes),format: :minute) if day.started_at.present? %></td>
             <td>
                <% if btn_text = attendance_state(day) %>
-            　　<%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+                 <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
                <% end %>
             </td>
             <td><%=l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
@@ -113,18 +113,18 @@
           <% if current_user == @user %>
           <td>
             <%= form_with(model: @user, url: applies_request_one_month_user_path(date: @first_day), method: :patch, local: true) do |f| %>
-              <%= f.fields_for :applies, @one_month_attendance do |apply|%>
+              <%= f.fields_for "applies[]", @one_month_attendance do |apply|%>
                <%= apply.hidden_field :one_month_request_status, value: "申請中" %>
                   <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blank => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
                   <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
                 <% unless @one_month_attendance.nil? %>
 
                  
-                  <% if @one_month_attendance.application_content == "否認" || application_content == "承認" %>
+                  <% if @one_month_attendance.one_month_request_status == "否認" || one_month_request_status == "承認" %>
                     <%= f.submit "再申請", data: { confirm: "再申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
-                  <!--<% elsif @one_month_attendance.application_content == "申請中" %>-->
+                  <!--<% elsif @one_month_attendance.one_month_request_status == "申請中" %>-->
                   <!--  <%= f.submit "申請先変更", data: { confirm: "申請先を変更してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>-->
-                  <!--<% else  @one_month_attendance.application_content == "申請" %>-->
+                  <!--<% else  @one_month_attendance.one_month_request_status == "申請" %>-->
                   <!--  <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>-->
                   <% end %>
                 <% end %>  
@@ -138,8 +138,9 @@
   </table> 
 </div>
 
-<div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-<div id="receive-change-attendance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="receive-change-attendance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="receive-one-month-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 
  

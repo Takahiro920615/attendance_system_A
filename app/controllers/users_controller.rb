@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   
    def show
    @worked_sum = @attendances.where.not(started_at:nil).count
-   @application_content = Apply.where(one_month_boss: @user.id, one_month_request_status: "申請中")
    @one_month_requests = Apply.where(one_month_boss: @user.id, one_month_request_status: "申請中")
    @one_month_attendance = nil
    
@@ -25,7 +24,6 @@ class UsersController < ApplicationController
        log_in @user
        flash[:success] = "新規作成に成功しました。"
        redirect_to @user
-      
      else
        flash.now[:danger] = "ユーザー登録に失敗しました"
        render :new
