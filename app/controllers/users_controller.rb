@@ -9,7 +9,7 @@ class UsersController < ApplicationController
    def show
    @worked_sum = @attendances.where.not(started_at:nil).count
    @one_month_requests = Apply.where(one_month_boss: @user.id, one_month_request_status: "申請中")
-   @one_month_attendance = nil
+   @one_month_attendance = @one_month_attendance.find_by(one_month: @first_day)
    
    end
   
