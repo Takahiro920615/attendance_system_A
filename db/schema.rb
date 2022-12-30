@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221215124101) do
+ActiveRecord::Schema.define(version: 20221230132733) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20221215124101) do
     t.boolean "change"
     t.integer "edit_attendance_boss"
     t.boolean "spread_day", default: false
+    t.string "one_month_request_status"
+    t.string "one_month_request_boss"
+    t.string "one_month_approval_status"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
