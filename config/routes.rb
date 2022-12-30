@@ -8,27 +8,36 @@ Rails.application.routes.draw do
 
  
  resources :users do
-   member do
+  member do
    get 'edit_basic_info'
    patch 'update_basic_info'
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
+   
+   patch 'attendances/update_one_month_request'
+   
    get 'worker'
-   
-   patch 'applies/request_one_month'
-   get 'applies/receive_one_month_request'
-   patch 'applies/decision_one_month_request'
-   
-   get 'attendances/receive_change_attendance'
-   patch 'attendances/update_change_attendance'
-   
-   end
+  end 
+
+  
   resources :attendances, only: :update do
+    member do
+
+  #勤怠承認
+      get 'edit_attendance_change_approval'
+      patch 'update_attendance_approval_change'
+
+     #１ヶ月の勤怠承認
+      get 'edit_one_month_status'
+      patch 'update_one_month_status'
+    end 
   end
- end
+end
+  
+ 
  
  resources :bases, only:[:new, :index, :create, :edit, :update, :destroy]
 
+end
   
 
-end

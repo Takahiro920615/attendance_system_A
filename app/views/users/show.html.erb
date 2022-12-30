@@ -109,32 +109,14 @@
           <td></td>
           <td colspan ="6"></td>
           <td colspan = "7"></td>
-          
-          <% if current_user == @user %>
+          <td class = "application-form">
           <td>
-            <%= form_with(model: @user, url: applies_request_one_month_user_path(date: @first_day), method: :patch, local: true) do |f| %>
-              <%= f.fields_for "applies[]", @one_month_attendance do |applies|%>
-               <%= apply.hidden_field :one_month_request_status, value: "申請中" %>
-                  <%= apply.collection_select :one_month_boss, @superiors, :id, :name, {:inclide_blank => "選択してください", selected: "選択してください"}, {class: "form-control"} %>
-                  <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
-                <% unless @one_month_attendance.nil? %>
-
-                 
-                  <% if @one_month_attendance.one_month_request_status == "否認" || one_month_request_status == "承認" %>
-                    <%= f.submit "再申請", data: { confirm: "再申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>
-                  <!--<% elsif @one_month_attendance.one_month_request_status == "申請中" %>-->
-                  <!--  <%= f.submit "申請先変更", data: { confirm: "申請先を変更してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>-->
-                  <!--<% else  @one_month_attendance.one_month_request_status == "申請" %>-->
-                  <!--  <%= f.submit "申請", data: { confirm: "申請してよろしいでしょうか？"}, class: "btn btn-default btn-primary btn-request form_control"%>-->
-                  <% end %>
-                <% end %>  
-              <% end %>
-            <% end %>
+           
           </td>
-          <% end %>
-        </tr>
-      
-        </tfoot>    
+        
+
+            
+    </tfoot>
   </table> 
 </div>
 

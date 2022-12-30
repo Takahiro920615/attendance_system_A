@@ -10,7 +10,6 @@ class AppliesController < ApplicationController
     ActiveRecord::Base.transaction do
       one_month_request_params.each do |id ,item|
         if params[:user][:applies][id][:one_month_boss].blank?
-        debugger
           flash[:danger] = "上長を選択してください。"
           redirect_to user_url(date: params[:date]) and return
         else
