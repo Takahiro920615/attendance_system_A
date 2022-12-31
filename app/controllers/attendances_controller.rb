@@ -80,6 +80,23 @@ class AttendancesController < ApplicationController
   redirect_to user_url(date: params[:date])
  end
    
+ #１ヶ月の勤怠申請
+ def update_one_month_request
+     one_month_request_params.each do |id, item|
+       attendance = Attendance.find(id)
+       if item[:one_month_request_boss].present?
+         item[:one_month_request_boss] = "申請中"
+         if attendance.update(item)
+           flash[:success] = "#{attendance.one_month_request_boss}へ１ヶ月の勤怠申請しました"
+         else
+           flash[:danger] = "1ヶ月の勤怠変更に失敗しました。"
+         end
+       else
+         flash[:danger] = "上長を選択してください"
+       end
+     end
+     redirect_to user_url(date: params[:date])
+ end
  
  
  
@@ -93,5 +110,10 @@ class AttendancesController < ApplicationController
    # 勤怠情報修正承認・否認時のストロングパラメーター
    def change_attendance_params
      params.require(:user).permit(attendance: [:edit_attendance_request_status])[:attendances]
+   end
+   
+   #１ヶ月の勤怠申請のストロングパラメーター
+   def one_month_request_params
+     params.require(:user).permit(attendances: [:one_month_request_boss, :one_month_request_status])[:attendances]
    end
 end
