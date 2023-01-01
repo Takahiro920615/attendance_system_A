@@ -98,6 +98,12 @@ class AttendancesController < ApplicationController
      redirect_to user_url(date: params[:date])
  end
  
+ def edit_one_month_approval
+     @attendances = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").order(:worked_on).group_by(&:user_id)
+ end
+ 
+ def update_one_month_approval 
+ end
  
  
  

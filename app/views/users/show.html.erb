@@ -31,10 +31,9 @@
 
 <div>
   <% if @user.superior && current_user == @user %>
-    <p>[所属長承認申請のお知らせ]<%= link_to "通知が#{@one_month_requests.count}件あります。",applies_receive_one_month_request_user_path(@user), remote: true,
-       class: "receive-request-link" %>
-    </p>
+    <%= link_to "[ 所属長承認申請のお知らせ ]", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color"%>
   <% end %>
+   
 </div>
 
 
@@ -138,6 +137,7 @@
     <div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="receive-change-attendance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="receive-one-month-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="edit-one-month-approval" class="modal fade" tabindex="-1" role="dialog" ariaidden="true"></div>
 
 
  
