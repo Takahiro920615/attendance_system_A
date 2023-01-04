@@ -1,5 +1,6 @@
 class AttendancesController < ApplicationController
-  before_action :set_user, only: [:edit_one_month, :update_one_month,:receive_change_attendance]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance]
+  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: :edit_one_month
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
@@ -102,7 +103,22 @@ class AttendancesController < ApplicationController
      @attendances = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").order(:worked_on).group_by(&:user_id)
  end
  
- def update_one_month_approval 
+ def update_one_month_approval
+     one_month_approval_params.each do |id, item|
+       attendance = Attendance.find(id)
+       if item[:one_month_approval_check] == "1"
+         if item[:one_month_approval_status] == "なし"
+           item[:one_month_approval_status] = nil
+           item[:one_month_approval_check] = nil
+         end
+         attendance.one_month_request_status = nil
+         attendance.update(item)
+         flash[:success] = "所属長承認申請の結果を送信しました。"
+       else
+         flash[:danger] = "承認確認のチェックを入れてください。"
+       end
+     end
+     redirect_to user_url(@user)
  end
  
  
@@ -121,5 +137,9 @@ class AttendancesController < ApplicationController
    #１ヶ月の勤怠申請のストロングパラメーター
    def one_month_request_params
      params.require(:user).permit(attendances: [:one_month_request_boss, :one_month_request_status])[:attendances]
+   end
+   
+   def one_month_approval_params
+     params.require(:user).permit(attendances: [:one_month_approval_status, :one_month_approval_check])[:attendances]
    end
 end

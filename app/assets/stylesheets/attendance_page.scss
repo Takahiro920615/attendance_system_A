@@ -1,8 +1,13 @@
+// Place all the styles related to the Attendances controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 body {
-  padding-top: 60px;
+  padding-top: 10px;
 }
 
 h1 {
@@ -21,5 +26,10 @@ h1 {
 
 .show_body{
   padding-top: 50px;
+  text-align: center;
+}
+
+.modal-body {
+  vertical-align: middle;
   text-align: center;
 }
