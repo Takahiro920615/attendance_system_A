@@ -9,6 +9,10 @@ class AttendancesController < ApplicationController
   INVALID_ERROR_MSG = "無効なデータがあったので、更新をキャンセルしました。"
   NO_CHECK_ERROR_MSG = "変更にチェックがないものは更新できません。"
   
+  def new
+    @attendances = attendance.new
+  end
+  
   def update
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
@@ -86,7 +90,7 @@ class AttendancesController < ApplicationController
      one_month_request_params.each do |id, item|
        attendance = Attendance.find(id)
        if item[:one_month_request_boss].present?
-         item[:one_month_request_boss] = "申請中"
+         item[:one_month_request_status] = "申請中"
          if attendance.update(item)
            flash[:success] = "#{attendance.one_month_request_boss}へ１ヶ月の勤怠申請しました"
          else
@@ -102,6 +106,7 @@ class AttendancesController < ApplicationController
  def edit_one_month_approval
      @attendances = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").order(:worked_on).group_by(&:user_id)
  end
+ 
  
  def update_one_month_approval
      one_month_approval_params.each do |id, item|

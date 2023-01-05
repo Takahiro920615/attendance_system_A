@@ -31,8 +31,10 @@
 
 <div>
   <% if @user.superior && current_user == @user %>
+  
     <%= link_to "[ 所属長承認申請のお知らせ ]", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %>
     <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span>
+  
   <% end %> 
    
 </div>
