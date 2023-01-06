@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/login', to:'sessions#create'
   delete 'logout', to:'sessions#destroy'
   
+  
   resources :bases, only:[:new, :index, :create, :edit, :update, :destroy]
 
  
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
    patch 'update_basic_info'
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
+   
    
    #勤怠を確認する
    get 'show_confirmation'

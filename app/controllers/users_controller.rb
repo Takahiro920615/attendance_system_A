@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only:[:show, :edit, :update,:destroy,:edit_basic_info,:update_basic_info]
+  before_action :set_user, only:[:show, :edit, :update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation]
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
   before_action :admin_user, only: [:destroy,:edit_basic_info,:update_basic_info]
-  before_action :set_one_month, only: :show
+  before_action :set_one_month, only: [:show, :show_confirmation]
   before_action :select_superiors, only: :show
   
    def show
@@ -74,6 +74,14 @@ class UsersController < ApplicationController
            @worker_users = User.all.includes(:attendances)
        end
    end
+  end
+  
+  def show_confirmation
+    #  user.attendances.all 
+    #  if
+    #   User.attendances.one_month_approval_status.present?
+    #   @approval_user = User.attendances.find(params[:user_id])
+    #  end
   end
   
   
