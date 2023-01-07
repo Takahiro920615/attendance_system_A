@@ -10,9 +10,12 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-12">
+         
           <%= form_with(model: @user, url: update_one_month_approval_user_attendance_path(@user), local: true, method: :patch) do |f| %>
             <% @attendances.each do |id, attendances| %>
-              <h1 class="modal-title"><%= "【#{@user.name}の1ヶ月分勤怠申請】" %></h1>
+              <% user = User.find(id)%>
+             
+              <h1 class="modal-title"><%= "【#{user.name}の1ヶ月分勤怠申請】" %></h1>
                <table class="table table-bordered table-condensed table-hover" id="table-attendances">
                 <thead>
                   <tr>
