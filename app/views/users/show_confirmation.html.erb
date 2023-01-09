@@ -30,29 +30,29 @@
 </div>
 
 <div>
-  <% if @user.superior && current_user == @user %>
+  <!--<% if @user.superior && current_user == @user %>-->
   
-    <%= link_to "[ 所属長承認申請のお知らせ ]", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %>
-    <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span>
+  <!--  <%= link_to "[ 所属長承認申請のお知らせ ]", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %>-->
+  <!--  <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span>-->
   
-  <% end %> 
+  <!--<% end %> -->
    
 </div>
 
 
 <!----- ボタン箇所--->
- <div class = "btn-user-show">
-   <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>
-   <%= link_to "CSV出力", "#", class: "btn btn-primary"%>
-   <p><%= link_to "勤怠修正ログ","#", class: "btn btn-primary btn-md"%></p>
-  </div>
+ <!--<div class = "btn-user-show">-->
+ <!--  <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>-->
+ <!--  <%= link_to "CSV出力", "#", class: "btn btn-primary"%>-->
+ <!--  <p><%= link_to "勤怠修正ログ","#", class: "btn btn-primary btn-md"%></p>-->
+ <!-- </div>-->
 
 
 <div class = "show_body">
   <table class = "table table-bordered table-condensed table-hover" id= "table-attendaces">
     <thead>
       <tr>
-        <th rowspan = "3"></th>
+        <th rowspan = "3">残業申請</th>
         <th rowspan = "3">日付</th>
         <th rowspan = "3">曜日</th>
         <th colspan = "8">実績</th>
@@ -81,15 +81,15 @@
         <tbody>
           <% @attendances.each do |day| %>
           <tr>
-            <td><%= link_to '残業指示', "#", class: "btn btn-primary"%></td>
+            <td></td>
             <td><%= l(day.worked_on,format: :short) %></td>
             <td><%= $days_of_the_week[day.worked_on.wday] %></td>
             <td><%= l(day.started_at, format: :hour) if day.started_at.present? %></td>
             <td><%= l(day.started_at.floor_to(15.minutes),format: :minute) if day.started_at.present? %></td>
             <td>
-               <% if btn_text = attendance_state(day) %>
-                 <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
-               <% end %>
+               <!--<% if btn_text = attendance_state(day) %>-->
+               <!--  <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>-->
+               <!--<% end %>-->
             </td>
             <td><%=l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
             <td><%=l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %></td>
@@ -121,7 +121,7 @@
                     <%= "所属長承認: "%>
                       <% if day.one_month_approval_status.nil? && day.one_month_request_status.nil?%>
                         <%= "末" %><br>
-                      <% elsif day.one_month_request_status == "申請中"%>
+                      <% elsif user.day.one_month_request_status == "申請中"%>
                         <%= "#{day.one_month_request_boss}へ#{day.one_month_request_status}" %><br>
                       <% elsif (day.one_month_approval_status =="承認") || (day.one_month_approval_status =="否認") %>
                         <%="#{day.one_month_request_boss}から#{day.one_month_approval_status}済" %><br>

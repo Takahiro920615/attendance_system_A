@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <%= form_with(model: @user, url: update_one_month_approval_user_attendance_path(@user), local: true, method: :patch) do |f| %>
             <% @attendances.each do |id, attendances| %>
-              <% user = User.find(id) %>
+              
               <h1 class="modal-title"><%= "【#{user.name}からの1ヶ月分勤怠申請】" %></h1>
                <table class="table table-bordered table-condensed table-hover" id="table-attendances">
                 <thead>
@@ -26,6 +26,7 @@
                 <tbody>
                   <% attendances.each do |day| %>              
                     <%= f.fields_for "attendances[]", day do |attendance| %>  
+                     <% user = User.find(id) %>
                       <tr>
                         <td><%= day.worked_on.month %>月</td>
                         <td><%= attendance.select :one_month_approval_status, ['なし', '申請中', '承認', '否認'] %></td>
@@ -34,6 +35,7 @@
                       </tr>
                     <% end %>
                   <% end %>
+                  <% byebug %>
                 </tbody>
               </table>
               <div class="center">

@@ -11,6 +11,7 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
+  <div id="main-message">
     <div class="container">
       <% flash.each do |message_type,msg| %>
        <div class = "alert alert-<%= message_type %>"><%= msg %></div>
@@ -19,4 +20,5 @@
       <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
+  </div>
 </html>

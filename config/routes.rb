@@ -16,14 +16,10 @@ Rails.application.routes.draw do
    patch 'update_basic_info'
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
-   
-   
    #勤怠を確認する
    get 'show_confirmation'
-  
    #１ヶ月の勤怠申請
    patch 'attendances/update_one_month_request'
-  
    get 'worker'
   end 
 
