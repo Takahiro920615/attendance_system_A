@@ -80,7 +80,11 @@ class UsersController < ApplicationController
    @worked_sum = @attendances.where.not(started_at:nil).count
    @superiors = User.where(superior: true).where.not(id: @user.id)
    @one_month_approval_sum = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").count
-
+  end
+  
+  def import
+    User.import(params[:file])
+    redirect_to root_url
   end
   
   

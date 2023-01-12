@@ -9,20 +9,26 @@ User.create!(name: "クウガ",
              email: "kuga@email.com",
              password: "kuga2000",
              password_confirmation: "kuga2000",
-             admin: true)
+             admin: true,
+             employee_number: 1,
+             uid: 1)
              
 User.create!(name: '上長A',
             email: "superior-1@email.com",
             superior: true,
             password: "password",
-            password_confirmation: "password"
+            password_confirmation: "password",
+            employee_number: 2,
+            uid: 2
             )
             
 User.create!(name: "上長B",
             email: "superior-2@email.com",
             superior: true,
             password: "password",
-            password_confirmation: "password"
+            password_confirmation: "password",
+            employee_number: 3,
+            uid: 3
             )
 
 60.times do |n|
@@ -31,7 +37,10 @@ User.create!(name: "上長B",
   User.create!(name: name,
                email: email,
                password: "password",
-               password_confirmation: "password"
+               password_confirmation: "password",
+               employee_number: n+4,
+               uid: n+4
+               
                )
                
 end

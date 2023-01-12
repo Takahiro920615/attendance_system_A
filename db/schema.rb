@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230106133203) do
+ActiveRecord::Schema.define(version: 20230112141439) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
@@ -65,10 +65,12 @@ ActiveRecord::Schema.define(version: 20230106133203) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2022-12-29 23:00:00"
-    t.datetime "work_time", default: "2022-12-29 22:30:00"
-    t.datetime "designated_work_start_time", default: "2022-12-29 23:00:00"
-    t.datetime "designated_work_end_time", default: "2022-12-30 10:00:00"
+    t.datetime "basic_time", default: "2023-01-11 23:00:00"
+    t.datetime "work_time", default: "2023-01-11 22:30:00"
+    t.datetime "designated_work_start_time", default: "2023-01-11 23:00:00"
+    t.datetime "designated_work_end_time", default: "2023-01-12 10:00:00"
+    t.integer "employee_number"
+    t.integer "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

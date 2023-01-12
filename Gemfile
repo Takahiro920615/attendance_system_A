@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'bcrypt'
 gem 'faker'
 gem 'rounding'
+gem 'roo'
 # Use sqlite3 as the database for Active Record
 gem 'bootstrap-sass'
 gem 'will_paginate'
