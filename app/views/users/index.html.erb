@@ -11,7 +11,7 @@
         </tr>
       </thead>
       
-      <%= form_with(url: import_users_path) do |f|%>
+      <%= form_with(url: import_users_path)  do |f|%>
         <%= f.file_field :file, accept: 'csv' %>
         <br><%= f.submit "インポート", class: "btn btn-primary csv-button"%></br>
       <% end %>
