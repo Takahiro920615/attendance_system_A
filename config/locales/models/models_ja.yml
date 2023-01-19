@@ -11,6 +11,8 @@ ja:
           email: メールアドレス
           password: パスワード
           password_confirmation: パスワード再入力
+          employee_number: 社員番号
+          uid: カードID
           created_at: 作成日
           updated_at: 更新日
           basic_time: 基本時間
