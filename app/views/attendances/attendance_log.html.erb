@@ -1,0 +1,44 @@
+<div class = "container">
+  <h1>勤怠ログ</h1>
+    <%= form_with(url: attendance_log_user_attendance_path, local: true, method: :get) do |f|%>
+      <div class = "pull-left" >
+        <%= f.date_select :select_year,
+        { end_year: Time.now.year, prompt: "年", discard_month: "true", discard_day: "true"},
+        {id: "log-sch", class: "form-control form-sch" }%>
+        <%= f.date_select :select_month,
+        {use_month_numbers: true, prompt: "月", discard_year: "true", discard_day: "true"},
+        {id: "log-sch", class: "form-control form-sch" } %>
+        <%= f.submit "検索", class: "btn"%>
+      </div>
+    <% end %>
+    
+    <table class="table table-bordered table-condensed table-hover" id:"table-attendances">
+      <thaed>
+        <tr>
+          <th>日付</th>
+          <th>変更前出勤時間</th>
+          <th>変更前退社時間</th>
+          <th>変更後出社時間</th>
+          <th>変更後退社時間</th>
+          <th>指示者</th>
+          <th colspan="2">承認日</th>
+        </tr>
+      </thaed>
+      <tbody>
+      <% if @first_day.present? %>
+        <% @attendance.each do |day|%>
+        <tr>
+          <td><%= day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})")%></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+      
+    </table>
+</div>
