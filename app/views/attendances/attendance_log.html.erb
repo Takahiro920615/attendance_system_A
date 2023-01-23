@@ -8,7 +8,7 @@
         <%= f.date_select :select_month,
         {use_month_numbers: true, prompt: "月", discard_year: "true", discard_day: "true"},
         {id: "log-sch", class: "form-control form-sch" } %>
-        <%= f.submit "検索", class: "btn"%>
+        <%= f.submit "検索", class: "btn "%>
       </div>
     <% end %>
     
@@ -26,15 +26,15 @@
       </thaed>
       <tbody>
       <% if @first_day.present? %>
-        <% @attendance.each do |day|%>
+        <% @attendances.each do |day|%>
         <tr>
-          <td><%= day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})")%></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+           <td><%= day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})") %></td>
+          <td><%= l(day.before_started_at, format: :time) if day.before_started_at.present? %></td>
+          <td><%= l(day.before_finished_at, format: :time) if day.before_finished_at.present? %></td>
+          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
+          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
+          <td><%= day.one_month_request_boss %></td>
+          <td><%= day.updated_at.strftime("%Y年%m月%d日") %></td>
         </tr>
         <% end %>
       <% end %>
@@ -42,3 +42,8 @@
       
     </table>
 </div>
+
+    <!--          "before_started_at"-->
+    <!--t.datetime "before_finished_at"-->
+    <!--t.datetime "after_started_at"-->
+    <!--t.datetime "after_finished_at"-->
