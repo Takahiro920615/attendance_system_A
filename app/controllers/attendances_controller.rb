@@ -35,56 +35,99 @@ class AttendancesController < ApplicationController
   end
   
   def edit_one_month
-      
+    @superiors = User.where(superior: true).where.not(id: @user.id)
+       
   end
   
 #社員による勤怠情報の修正
- def update_one_month
-   ActiveRecord::Base.transaction do
-      attendances_params.each do |id, item|
-        attendance = Attendance.find(id)
-        if (item)[:after_started_at].present? && (item)[:after_finished_at].present?
-          if (item)[:edit_attendance_boss].present? && (item)[:note].present?
-            attendance.edit_attendance_request_status = "申請中" 
-            attendance.update_attributes!(item)
-          else 
-            flash[:danger] = "申請箇所には出社、退社、備考、指示者確認㊞が必要です。"
-          end
+   def update_one_month
+     a_count = 0
+     ActiveRecord::Base.transaction do
+        attendances_params.each do |id, item|
+         if item[:edit_attendance_boss].present?
+           if item[:after_started_at].blank? && item[:after_finished_at].present?
+             flash[:danger]="出勤時間が必要です"
+             redirect_to attendances_edit_one_month_user_url(date:params[:date])
+           
+           elsif item[:after_started_at].present? && item[:after_finished_at].blank?
+             flash[:danger] = "退勤時間が必要です"
+             redirect_to attendances_edit_one_month_user_url(date:params[:date])
+           
+           elsif item[:edit_started_at].present? && item[:edit_finished_at].present? && item[:edit_started_at].to_s > item[:edit_finished_at].to_s
+            flash[:danger] = "時刻に誤りがあります。"
+            redirect_to attendances_edit_one_month_user_url(date: params[:date])
+           
+           end
+           attendance = Attendance.find(id)
+           attendance.one_month_request_status= "申請中"
+           a_count+=1
+           attendance.update!(item)
+         end
         end
-      end
-    end
-    flash[:success] = "1ヶ月分の勤怠情報を更新・申請しました。"
-    redirect_to user_url(date: params[:date])
- rescue ActiveRecord::RecordInvalid
-    flash[:danger] = INVALID_ERROR_MSG
-    redirect_to attendances_edit_one_month_user_url(date: params[:date])
- end
+        if a_count > 0
+          flash[:success] = "勤怠編集を#{a_count}件、申請しました。"
+          redirect_to user_url(date: params[:date])
+          return
+        else
+          flash[:danget] = "上長を選択してください"
+          redirect_to attendances_edit_one_month_user_url(date:params[:date])
+          return
+        end
+     end    
+   end
  
  def receive_change_attendance
    @change_attendance_requests = Attendance.order(:worked_on).where(edit_attendance_boss: @user.id, edit_attendance_request_status: "申請中")
  end
  
  
- def update_change_attendance
-   ActiveRecord::Base.transaction do
-     change_attendance_params.each do |id, item|
-       change_attendance = Attendance.find(id)
-       if params[:user][:attendance][id][:change] == "true"
-         if change_attendance.started_at.nil? || change_attendance.finished_at.nil?
-           change_attendance.started_at = change_attendance.after_started_at
-           change_attendance.finished_at = change_attendance.after_finished_at
+#  def update_change_attendance
+#   ActiveRecord::Base.transaction do
+#      change_attendance_params.each do |id, item|
+#       change_attendance = Attendance.find(id)
+#       if params[:user][:attendance][id][:change] == "true"
+#          if change_attendance.started_at.nil? || change_attendance.finished_at.nil?
+#           change_attendance.started_at = change_attendance.after_started_at
+#           change_attendance.finished_at = change_attendance.after_finished_at
+#          end
+#       else
+#          flash[:danger] = NO_CHECK_ERROR_MSG
+#       end
+#      end
+#   end
+#   flash[:success] = "勤怠変更の決済を更新しました。"
+#   redirect_to user_url(date params[:date])
+#  rescue ActiveRecord::RecordInvalid
+#   flash[:danger] = INVALID_ERROR_MSG
+#   redirect_to user_url(date: params[:date])
+#  end
+ #勤怠変更申請
+ def update_attendance_approval_change 
+   a_count = 0
+   attendance_approval_params.each do |id, item|
+     attendance = Attendance.find(id)
+     if item[:attendance_approval_check] == "1"
+       unless item[:attendance_approvak_status] == "申請中"|| item[:attendance_approval_status] == "なし"
+         if item[:attendance_approval_status] == "承認"
+           attendance.before_started_at = attendance.started_at
+           attendance.before_finished_at = attendance.finished_at
+           item[:started_at] = attendance.after_started_at
+           item[:finished_at] = attendance.after_finished_at
          end
-       else
-         flash[:danger] = NO_CHECK_ERROR_MSG
+        a_count += 1
+        attendance.update(item)
        end
-     end
+       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil, next_day: nil) if item[:attendances_approval_status] == "なし"
+     end 
+   end       
+   if a_count > 0
+     flash[:success] = "勤怠変更の承認に成功しました"
+   else
+     flash[:danger] = "勤怠変更の承認に失敗しました"
    end
-   flash[:success] = "勤怠変更の決済を更新しました。"
-   redirect_to user_url(date params[:date])
- rescue ActiveRecord::RecordInvalid
-   flash[:danger] = INVALID_ERROR_MSG
-  redirect_to user_url(date: params[:date])
+   refirect_to user_url(@user)
  end
+   
    
  #１ヶ月の勤怠申請
  def update_one_month_request
@@ -105,7 +148,6 @@ class AttendancesController < ApplicationController
  end
  
  def edit_one_month_approval
-     
      @attendances = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").order(:worked_on).group_by(&:user_id)
  end
  

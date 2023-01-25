@@ -37,6 +37,7 @@
    <% else %>
     <%= "[ 所属長承認申請のお知らせ ]" %>
   <% end %>
+    <%= link_to "[勤怠承認申請のお知らせ]", attendances_edit_attendance_change_approval_user_attendance_path(@user), remote:true %>
   <% end %> 
    
 </div>
@@ -86,16 +87,40 @@
             <td><%= link_to '残業指示', "#", class: "btn btn-primary"%></td>
             <td><%= l(day.worked_on,format: :short) %></td>
             <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-            <td><%= l(day.started_at, format: :hour) if day.started_at.present? %></td>
-            <td><%= l(day.started_at.floor_to(15.minutes),format: :minute) if day.started_at.present? %></td>
+            <td>
+              <% if day.after_started_at.present? %>
+              <%= l(day.after_started_at, format: :hour) %>
+              <% else %>
+              <%= l(day.started_at, format: :hour) if day.started_at.present? %>
+              <% end %>
+            </td>
+            <td>
+              <% if day.after_started_at.present? %>
+              <%= l(day.after_started_at,format: :minute)%>
+              <% else %>
+              <%= l(day.started_at.floor_to(15.minutes),format: :minute) if day.started_at.present? %>
+              <% end %>
+            </td>
             <td></td>
             <td>
                <% if btn_text = attendance_state(day) %>
                  <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
                <% end %>
             </td>
-            <td><%=l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
-            <td><%=l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %></td>
+            <td>
+              <% if day.after_finished_at.present?%>
+              <%= l(day.after_finished_at,format: :hour)%>
+              <% else %>
+              <%=l(day.finished_at,format: :hour) if day.finished_at.present? %>
+              <% end %>
+            </td>
+            <td>
+              <% if day.after_finished_at.present?%>
+              <%= l(day.after_finished_at,format: :minute)%>
+              <% else %>
+              <%=l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %>
+              <% end %>
+            </td>
             <td></td>
             <td><%= day.note%></td>
             <td></td>
@@ -144,6 +169,8 @@
     <div id="receive-change-attendance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="receive-one-month-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-one-month-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="edit-attendance-change-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    
 
 
  
