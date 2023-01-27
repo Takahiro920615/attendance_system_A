@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       
       #勤怠承認
       get 'edit_attendance_change_approval'
-      patch 'update_attendance_approval_change'  
+      patch 'update_attendance_change_approval'  
       
       #1ヶ月の勤怠承認
       get 'edit_one_month_approval'
