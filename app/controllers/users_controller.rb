@@ -10,7 +10,8 @@ class UsersController < ApplicationController
    @worked_sum = @attendances.where.not(started_at:nil).count
    @superiors = User.where(superior: true).where.not(id: @user.id)
    @one_month_approval_sum = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").count
-  
+   @attendances_sum = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").count
+
    
    end
   

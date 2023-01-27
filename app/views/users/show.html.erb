@@ -36,9 +36,12 @@
     <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span>
    <% else %>
     <%= "[ 所属長承認申請のお知らせ ]" %>
+   <% end %>
+    <%=link_to "【  勤怠変更申請のお知らせ 】",edit_attendance_change_approval_user_attendance_path(@user), remote: true, class: "notice-color" %><br>
   <% end %>
-    <%= link_to "[勤怠承認申請のお知らせ]", attendances_edit_attendance_change_approval_user_attendance_path(@user), remote:true %>
-  <% end %> 
+  
+  
+  
    
 </div>
 
@@ -127,7 +130,13 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td>
+              <!--<% if day.attendance_approval_status == "申請中" %>-->
+              <!--  <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.attendance_approval_status}"%>-->
+              <!--<% elsif day.attendance_approval_status =="承認" || day.attendance_approval_status == "否認" %>-->
+              <!--  <%= "#{day.attendances_request_superiors}より勤怠#{day.attendance_approval_status}"%>-->
+              <!--<% end %>-->
+            </td>
            
           </tr>
           <% end %>
@@ -170,6 +179,7 @@
     <div id="receive-one-month-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-one-month-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-attendance-change-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    
     
 
 

@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20230112141439) do
     t.datetime "after_finished_at"
     t.integer "edit_attendance_request_status"
     t.integer "overtime_request_status"
-    t.boolean "change"
+    t.boolean "change", default: false
     t.integer "edit_attendance_boss"
     t.boolean "spread_day", default: false
     t.string "one_month_request_status"
@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 20230112141439) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2023-01-25 23:00:00"
-    t.datetime "work_time", default: "2023-01-25 22:30:00"
-    t.datetime "designated_work_start_time", default: "2023-01-25 23:00:00"
-    t.datetime "designated_work_end_time", default: "2023-01-26 10:00:00"
+    t.datetime "basic_time", default: "2023-01-26 23:00:00"
+    t.datetime "work_time", default: "2023-01-26 22:30:00"
+    t.datetime "designated_work_start_time", default: "2023-01-26 23:00:00"
+    t.datetime "designated_work_end_time", default: "2023-01-27 10:00:00"
     t.integer "employee_number"
     t.integer "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
