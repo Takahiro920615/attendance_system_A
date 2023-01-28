@@ -1,6 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_attendance_change_approval]
-  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval,:attendance_log,:edit_attendance_change_approval]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval]
+  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval,:attendance_log]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
@@ -82,8 +83,7 @@ class AttendancesController < ApplicationController
    
    #勤怠変更申請のお知らせモーダルの表示
    def edit_attendance_change_approval
-       user_id = Attendance.find(params[:user_id])
-     @attendances = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").order(:worked_on).group_by(&user_id)
+     @attendances = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").order(:worked_on)
    end
    
    #勤怠変更申請のお知らせモーダル更新

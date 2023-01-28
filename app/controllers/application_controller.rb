@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
       @user_id = User.find_by(id: params[:user_id])
     end
     
+    def set_user_ids
+      @user = User.find(params[:user_id])
+    end    
     def logged_in_user
       unless logged_in?
         store_location
