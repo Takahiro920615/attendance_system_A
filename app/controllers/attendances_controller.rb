@@ -1,10 +1,11 @@
 class AttendancesController < ApplicationController
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_attendance_change_approval]
-  before_action :set_user_ids, only: [:edit_attendance_change_approval]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval]
   before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval,:attendance_log]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
+  
   
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
   INVALID_ERROR_MSG = "無効なデータがあったので、更新をキャンセルしました。"
@@ -37,7 +38,6 @@ class AttendancesController < ApplicationController
   
   def edit_one_month
     @superiors = User.where(superior: true).where.not(id: @user.id)
-       
   end
   
 #社員による勤怠情報の修正
@@ -63,8 +63,10 @@ class AttendancesController < ApplicationController
            attendance.attendance_approval_status = "申請中"
            a_count += 1
            attendance.update!(item)
+          
          end
         end
+         
         if a_count > 0
           flash[:success] = "勤怠編集を#{a_count}件、申請しました。"
           redirect_to user_url(date: params[:date])
@@ -81,12 +83,14 @@ class AttendancesController < ApplicationController
      return
    end
    
-   #勤怠変更申請のお知らせモーダルの表示
+   #勤怠変更申請(上長)のお知らせモーダルの表示
    def edit_attendance_change_approval
-     @attendances = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").order(:worked_on)
+     @attendances = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").order(:worked_on).group_by(&:user_id)
+     
    end
    
    #勤怠変更申請のお知らせモーダル更新
+ 
    def update_attendance_change_approval
      a_count = 0
      attendance_approval_params.each do |id, item|
@@ -94,7 +98,7 @@ class AttendancesController < ApplicationController
        if item[:attendance_approval_check] == "1"
          unless item[:attendance_approval_status] == "申請中"|| item[:attendance_approval_status] == "なし"
           if item[:attendance_approval_status] =="承認"
-            attendance.after_finished_at = attendance.started_at
+            attendance.after_started_at = attendance.started_at
             attendance.after_finished_at = attendance.finished_at
             item[:started_at] =attendance.after_started_at
             item[:finished_at]=attendance.after_finished_at
@@ -112,7 +116,8 @@ class AttendancesController < ApplicationController
      end
      redirect_to user_url(@user)
    end
- 
+   
+
 #  def receive_change_attendance
 #   @change_attendance_requests = Attendance.order(:worked_on).where(edit_attendance_boss: @user.id, edit_attendance_request_status: "申請中")
 #  end
@@ -139,7 +144,7 @@ class AttendancesController < ApplicationController
 #   redirect_to user_url(date: params[:date])
 #  end
  #勤怠変更申請
- def update_attendance_approval_change 
+ def update_attendance_change_approval
    a_count = 0
    attendance_approval_params.each do |id, item|
      attendance = Attendance.find(id)
@@ -162,7 +167,7 @@ class AttendancesController < ApplicationController
    else
      flash[:danger] = "勤怠変更の承認に失敗しました"
    end
-   refirect_to user_url(@user)
+   redirect_to user_url(@user)
  end
    
    
@@ -228,6 +233,11 @@ class AttendancesController < ApplicationController
      params.require(:user).permit(attendance: [:edit_attendance_request_status])[:attendances]
    end
    
+   def attendance_approval_params
+       params.require(:user).permit(attendances:[:attendance_approval_status,:attendance_approval_check])[:attendances]
+   end
+   
+   
    #１ヶ月の勤怠申請のストロングパラメーター
    def one_month_request_params
      params.require(:user).permit(attendances: [:one_month_request_boss, :one_month_request_status])[:attendances]
@@ -236,4 +246,6 @@ class AttendancesController < ApplicationController
    def one_month_approval_params
      params.require(:user).permit(attendances: [:one_month_approval_status, :one_month_approval_check])[:attendances]
    end
+   
+   
 end

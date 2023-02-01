@@ -46,7 +46,7 @@
                 <td><%= attendance.check_box :change %></td>
                 <td></td>
                 <td><%= attendance.text_field :note, placeholder: "変更理由を入力してください", class: "form-control" if Date.current >= day.worked_on %></td>
-                <td><%= attendance.collection_select :attendances_request_superiors, @superiors, :id, :name, { :include_blank => "選択してください", selected: "選択してください"},
+                <td><%= attendance.collection_select :attendances_request_superiors, @superiors, :name, :name, {include_blank: "選択してください", selected: "選択してください"},
                 {class: "form-control"} if Date.current >= day.worked_on%></td>
               </tr>
           <% end %>
