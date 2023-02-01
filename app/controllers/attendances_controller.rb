@@ -233,8 +233,10 @@ class AttendancesController < ApplicationController
      params.require(:user).permit(attendance: [:edit_attendance_request_status])[:attendances]
    end
    
+   #勤怠変更承認のストロングパラメーター
    def attendance_approval_params
        params.require(:user).permit(attendances:[:attendance_approval_status,:attendance_approval_check])[:attendances]
+    
    end
    
    
