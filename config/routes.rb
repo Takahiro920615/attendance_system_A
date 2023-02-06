@@ -21,6 +21,7 @@ Rails.application.routes.draw do
    #１ヶ月の勤怠申請
    patch 'attendances/update_one_month_request'
    get 'worker'
+   
   end 
   collection {post :import}
   

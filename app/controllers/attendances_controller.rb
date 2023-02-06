@@ -1,10 +1,11 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log]
   before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval]
-  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval,:attendance_log]
+  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
-  before_action :set_one_month, only: [:edit_one_month,]
+  before_action :set_one_month, only: [:edit_one_month]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
+  
   
   
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
@@ -211,12 +212,12 @@ class AttendancesController < ApplicationController
      end
      redirect_to user_url(@user.id)
  end
- 
+
+
  def attendance_log
-   
    if params["select_year(1i)"].present? && params["select_month(2i)"].present?
       @first_day = (params["select_year(1i)"] + "-" + params["select_month(2i)"] + "-01").to_date
-      @attendances = @user.attendances.where(worked_on: @first_day..@first_day.end_of_month,one_month_approval_status: "承認").order(:worked_on)
+      @attendances = @user.attendances.where(worked_on: @first_day..@first_day.end_of_month,attendance_approval_status: "承認").order(:worked_on)
    end
  end
  
@@ -249,5 +250,6 @@ class AttendancesController < ApplicationController
      params.require(:user).permit(attendances: [:one_month_approval_status, :one_month_approval_check])[:attendances]
    end
    
+
    
 end
