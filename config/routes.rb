@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   resources :attendances, only: :update do
     member do
       
+      #残業申請
+      get 'edit_overtime_request'
+      patch 'update_overtime_request'
+      
       #勤怠承認
       get 'edit_attendance_change_approval'
       patch 'update_attendance_change_approval'  

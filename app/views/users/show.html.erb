@@ -48,7 +48,7 @@
 
 <!----- ボタン箇所--->
  <div class = "btn-user-show">
-   <%= link_to "勤怠編集", attendances_edit_one_month_user_path(@user), class: "btn btn-primary"%>
+   <%= link_to "勤怠編集",attendances_edit_one_month_user_path(date:@first_day), class: "btn btn-primary"%>
    <%= link_to "CSV出力", "#", class: "btn btn-primary"%>
    <p><%= link_to "勤怠修正ログ",attendance_log_user_attendance_path(@user.attendances), class: "btn btn-primary btn-md"%></p>
   </div>
@@ -87,7 +87,7 @@
         <tbody>
           <% @attendances.each do |day| %>
           <tr>
-            <td><%= link_to '残業指示', "#", class: "btn btn-primary"%></td>
+            <td><%= link_to '残業申請', edit_overtime_request_user_attendance_path(@user,day), remote: true, class: "btn btn-primary"%></td>
             <td><%= l(day.worked_on,format: :short) %></td>
             <td><%= $days_of_the_week[day.worked_on.wday] %></td>
             <td>
@@ -131,11 +131,11 @@
             <td></td>
             <td></td>
             <td>
-              <!--<% if day.attendance_approval_status == "申請中" %>-->
-              <!--  <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.attendance_approval_status}"%>-->
-              <!--<% elsif day.attendance_approval_status =="承認" || day.attendance_approval_status == "否認" %>-->
-              <!--  <%= "#{day.attendances_request_superiors}より勤怠#{day.attendance_approval_status}"%>-->
-              <!--<% end %>-->
+              <% if day.attendance_approval_status == "申請中" %>
+                <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.attendance_approval_status}"%>
+              <% elsif day.attendance_approval_status =="承認" || day.attendance_approval_status == "否認" %>
+                <%= "#{day.attendances_request_superiors}より勤怠#{day.attendance_approval_status}"%>
+              <% end %>
             </td>
            
           </tr>
@@ -173,10 +173,11 @@
     </tfoot>
   </table> 
 </div>
-
+　　<div id="edit-overtime-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-attendance-change-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-one-month-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    
     <!--<div id="receive-change-attendance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>-->
     <!--<div id="receive-one-month-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>-->
     
