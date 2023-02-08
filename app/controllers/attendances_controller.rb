@@ -1,11 +1,11 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_overtime_request]
-  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request]
   before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
-  before_action :set_attendance ,only: [:edit_overtime_request]
+  before_action :set_attendance ,only: [:edit_overtime_request,:update_overtime_request]
   
   
   
@@ -43,7 +43,21 @@ class AttendancesController < ApplicationController
     @superiors = User.where(superior: true).where.not(id: @user.id)
   end
   
-  
+  #残業申請モーダルの更新
+  def update_overtime_request
+    if overtime_request_params[:change_end_time].blank? || overtime_request_params[:reason_for_application].blank? || overtime_request_params[:overtime_request_superior].blank?
+      flash[:danger] = "終了予定時間、残業理由、または指示者確認印がありません"   
+    else
+      if overtime_request_params[:change_end_time].present? && one_month_approval_params[:reason_for_application].present? && one_month_approval_params[:overtime_request_superior].present?
+        params[:attendance][:request_overtime_status] = "申請中"
+        @attendance.update(overtime_request_params)
+        flash[:success] = "残業申請しました"
+      else
+        flash[:danger] = "残業申請が正しくありません"
+      end
+    end
+    redirect_to @user
+  end
   
   
   def edit_one_month
@@ -238,6 +252,11 @@ class AttendancesController < ApplicationController
    def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors, :note])[:attendances]
    end 
+   
+   #残業申請内容のストロングパラメーター
+   def overtime_request_params
+     params.require(:attendance).permit([:change_end_time,:reason_for_application,:overtime_next_day,:overtime_request_superior,:request_overtime_status])
+   end
 
    # 勤怠情報修正承認・否認時のストロングパラメーター
    def change_attendance_params

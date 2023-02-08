@@ -31,7 +31,7 @@ User.create!(name: "上長B",
             uid: 3
             )
 
-10.times do |n|
+60.times do |n|
   name  = Faker::Name.name
   email = "sample-#{n+1}@email.com"
   User.create!(name: name,
