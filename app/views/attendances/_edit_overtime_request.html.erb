@@ -21,6 +21,16 @@
               <th>指示者確認印</th>
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              <td><%= l(@attendance.worked_on, format: :short)%></td>
+              <td><%= $days_of_the_week[@attendance.worked_on.wday]  %></td>
+              <td><%= f.time_field :change_end_time, class: "form-control"%></td>
+              <td><%= f.check_box :overtime_next_day%></td>
+              <td><%= f.text_field :reason_for_application, class: "form-control"%></td>
+              <td><%= f.collection_select :overtime_request_superior, @superiors, :name, :name, {prompt: ""}, required: true, class: "form-control" %></td>
+            </tr>
+          </tbody>
           </table>
          <% end %>
         </div>

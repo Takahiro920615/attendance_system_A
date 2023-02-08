@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
   before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval]
   before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
-  before_action :set_one_month, only: [:edit_one_month]
+  before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
   before_action :set_attendance ,only: [:edit_overtime_request]
   
@@ -40,7 +40,7 @@ class AttendancesController < ApplicationController
   
   #残業申請（edit)モーダル
   def edit_overtime_request
-    @attendances = Attendance.where(overtime_request_superior: @user.name, overtime_request_status: "申請中").order(:worked_on).group_by(&:user_id)
+    @superiors = User.where(superior: true).where.not(id: @user.id)
   end
   
   
