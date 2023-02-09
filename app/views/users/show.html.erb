@@ -38,6 +38,7 @@
     <%= "[ 所属長承認申請のお知らせ ]" %>
    <% end %>
     <p><%=link_to "[  勤怠変更申請のお知らせ ]",edit_attendance_change_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></p>
+    <p><%=link_to "[ 残業申請のお知らせ]",edit_overtime_approval_user_attendance_path(@user), remote: true, class: "notice-color"%></p>
   <% end %>
   
   
@@ -174,6 +175,7 @@
   </table> 
 </div>
 　　<div id="edit-overtime-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+　　<div id="edit-overtime-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="receve_application_content" class=" modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-attendance-change-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div id="edit-one-month-approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

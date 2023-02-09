@@ -32,6 +32,10 @@ Rails.application.routes.draw do
       get 'edit_overtime_request'
       patch 'update_overtime_request'
       
+      #残業申請承認
+      get 'edit_overtime_approval'
+      patch 'update_overtime_approval'
+      
       #勤怠承認
       get 'edit_attendance_change_approval'
       patch 'update_attendance_change_approval'  

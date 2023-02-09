@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_overtime_request]
-  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval]
   before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
@@ -57,6 +57,13 @@ class AttendancesController < ApplicationController
       end
     end
     redirect_to @user
+  end
+  
+  def edit_overtime_approval
+    @attendances = Attendance.where(overtime_request_superior: @user.name, request_overtime_status: "申請中").order(:worked_on).group_by(&:user_id)
+  end
+  
+  def update_overtime_approval
   end
   
   
