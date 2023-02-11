@@ -48,7 +48,7 @@ class AttendancesController < ApplicationController
     if overtime_request_params[:change_end_time].blank? || overtime_request_params[:reason_for_application].blank? || overtime_request_params[:overtime_request_superior].blank?
       flash[:danger] = "終了予定時間、残業理由、または指示者確認印がありません"   
     else
-      if overtime_request_params[:change_end_time].present? && one_month_approval_params[:reason_for_application].present? && one_month_approval_params[:overtime_request_superior].present?
+      if overtime_request_params[:change_end_time].present? && overtime_request_params[:reason_for_application].present? && overtime_request_params[:overtime_request_superior].present?
         params[:attendance][:request_overtime_status] = "申請中"
         @attendance.update(overtime_request_params)
         flash[:success] = "残業申請しました"

@@ -36,7 +36,7 @@
                   </thead>
                   <tbody>
                     <% attendances.each do |day| %>
-                      <%= f.ields_for"attendances[]", day do |attendance|%>
+                      <%= fields_for"attendances[]", day do |attendance|%>
                         <tr>
                           <td><%= l(day.worked_on, format: :short)%></td>
                           <td></td>
@@ -49,7 +49,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
+                         
                         </tr>
                       <% end %>
                     <% end %>
