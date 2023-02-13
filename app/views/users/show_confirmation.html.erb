@@ -4,14 +4,8 @@
   <table class = "table table-bordered table-condensed table-hover user-table">
     <thead>
         <tr>  
-          <th>
-          <%= l(@first_day, format: :middle)%>　時間管理表
-           
-          </th>
-          <th>
-          <h5>指定勤務開始時間　　<%= l(@user.designated_work_start_time, format: :time)%></h5>
-          <h5><p>指定勤務終了時間　　<%= l(@user.designated_work_end_time, format: :time) %></p></h5>
-          </th>
+          <th><%= l(@first_day, format: :middle)%> 時間管理表</th>
+          <th>基本勤務時間　　<%= l(@user.work_time, format: :time)%></th>
           <th colspan= "3">基本時間　　<%=l(@user.basic_time, format: :time)%></th>
           <th>初日<%= l(@first_day, format: :short)%></th>
         </tr>
@@ -21,7 +15,7 @@
           <td>所属：<%= @user.department.present? ? @user.department: "未所属" %></td>
           <td>氏名：<%= @user.name %></td>
           <td>コード</td>
-          <td><%= @user.id%></td>
+          <td><%= @user.uid%></td>
           <td>出勤日数<%= @worked_on%></td>
           <td>締日<%= l(@last_day, format: :short)%></td>
         </tr>
@@ -55,23 +49,23 @@
         <th rowspan = "3">残業申請</th>
         <th rowspan = "3">日付</th>
         <th rowspan = "3">曜日</th>
-        <th colspan = "8">実績</th>
-        <th colspan = "7" >所定外勤務</th>
+        <th rowspan = "3">出勤退勤登録</th>
+        <th colspan = "6">実績</th>
+        <th colspan = "5" >所定外勤務</th>
       </tr>
       <tr>
-        <td colspan = "4">出社</td>
+        <td colspan = "2">出社</td>
         <td colspan = "2">退社</td>
-        <td rowspan ="2">在社時間</td>
+        <td rowspan = "2">在社時間</td>
         <td rowspan = "2">備考</td>
-        <td colspan = 2>終了予定時間</td>
+        <td colspan = "2">終了予定時間</td>
         <td rowspan = "2">時間外時間</td>
         <td rowspan = "2">業務処理内容</td>
-        <td rowspan = "2">指示者確認印</td>
+        <td rowspan = "2" >指示者確認印</td>
       </tr>
       <tr>
         <td>時</td>
         <td>分</td>
-        <td colspan="2"></td>
         <td>時</td>
         <td>分</td>
         <td>時</td>
@@ -91,15 +85,18 @@
                <!--  <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>-->
                <!--<% end %>-->
             </td>
-            <td><%=l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
-            <td><%=l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %></td>
+            <td><%= l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
+            <td><%= l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %></td>
+            <td>
+              <% if day.started_at.present? && day.finished_at.present?%>
+                <%= str_time = working_times(day.started_at, day.finished_at) %>
+              <% end %>
+            </td>
+            <td><%= day.note %></td>
+            <td><%=l(day.finished_at, format: :hour) if day.finished_at.present? %></td>
+            <td><%=l(day.finished_at, format: :minute) if day.finished_at.present?%></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= day.reason_for_application%></td>
             <td></td>
           </tr>
           <% end %>
@@ -110,27 +107,30 @@
           <td></td>
           <td></td>
           <td></td>
-          <td colspan ="6"></td>
+          <td></td>
+          <td></td>
           <td colspan = "6"></td>
+          <td></td>
+          <td></td>
           <td>
            <div class = "application-form">
-            <% if current_user %>
-              <% day = @user.attendances.find_by(worked_on: @first_day)%>
-                <%= form_with(model: @user, url: attendances_update_one_month_request_user_path(@user), local: true, method: :patch) do |f| %>
-                  <%= f.fields_for "attendances[]", day do |attendance|%>
-                    <%= "所属長承認: "%>
-                      <% if day.one_month_approval_status.nil? && day.one_month_request_status.nil?%>
-                        <%= "末" %><br>
-                      <% elsif user.day.one_month_request_status == "申請中"%>
-                        <%= "#{day.one_month_request_boss}へ#{day.one_month_request_status}" %><br>
-                      <% elsif (day.one_month_approval_status =="承認") || (day.one_month_approval_status =="否認") %>
-                        <%="#{day.one_month_request_boss}から#{day.one_month_approval_status}済" %><br>
-                      <% end %>
+            <!--<% if current_user %>-->
+            <!--  <% day = @user.attendances.find_by(worked_on: @first_day)%>-->
+            <!--    <%= form_with(model: @user, url: attendances_update_one_month_request_user_path(@user), local: true, method: :patch) do |f| %>-->
+            <!--      <%= f.fields_for "attendances[]", day do |attendance|%>-->
+            <!--        <%= "所属長承認: "%>-->
+            <!--          <% if day.one_month_approval_status.nil? && day.one_month_request_status.nil?%>-->
+            <!--            <%= "末" %><br>-->
+            <!--          <% elsif user.day.one_month_request_status == "申請中"%>-->
+            <!--            <%= "#{day.one_month_request_boss}へ#{day.one_month_request_status}" %><br>-->
+            <!--          <% elsif (day.one_month_approval_status =="承認") || (day.one_month_approval_status =="否認") %>-->
+            <!--            <%="#{day.one_month_request_boss}から#{day.one_month_approval_status}済" %><br>-->
+            <!--          <% end %>-->
                     
-                  <% end %>
-                    <br><%= f.submit "申請", class: "btn btn-primary" %></br>
-                <% end %>
-            <% end %>
+            <!--      <% end %>-->
+            <!--        <br><%= f.submit "申請", class: "btn btn-primary" %></br>-->
+            <!--    <% end %>-->
+            <!--<% end %>-->
             </div>
            </td>
     </tfoot>
