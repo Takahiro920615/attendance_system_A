@@ -64,6 +64,21 @@ class AttendancesController < ApplicationController
   end
   
   def update_overtime_approval
+    overtime_approval_params.each do |id,item|
+      attendance = Attendance.find(id)
+      if item[:opvertijme_check]=="1"
+        if item[:request_overtime_status]=="なし"
+          attendance.change_end_time = nil
+          attendance.overtime_next_day = nil
+          attendance.overtime_request_superior = nil
+        end
+        attendance.update(item)
+         flash[:success] = "残業申請を承認しました"
+      else
+         flash[:danger] = "残業申請の承認に失敗しました"
+      end
+      redirect_to user_url(@user)
+    end
   end
   
   
@@ -117,7 +132,6 @@ class AttendancesController < ApplicationController
    #勤怠変更申請(上長)のお知らせモーダルの表示
    def edit_attendance_change_approval
      @attendances = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").order(:worked_on).group_by(&:user_id)
-     
    end
    
    #勤怠変更申請のお知らせモーダル更新
@@ -263,6 +277,10 @@ class AttendancesController < ApplicationController
    #残業申請内容のストロングパラメーター
    def overtime_request_params
      params.require(:attendance).permit([:change_end_time,:reason_for_application,:overtime_next_day,:overtime_request_superior,:request_overtime_status])
+   end
+   
+   def overtime_approval_params
+     params.require(:attenedance).permit([:request_overtime_status,:overtime_check])[:attendances]
    end
 
    # 勤怠情報修正承認・否認時のストロングパラメーター

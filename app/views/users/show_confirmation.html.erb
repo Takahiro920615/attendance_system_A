@@ -95,9 +95,18 @@
             <td><%= day.note %></td>
             <td><%=l(day.finished_at, format: :hour) if day.finished_at.present? %></td>
             <td><%=l(day.finished_at, format: :minute) if day.finished_at.present?%></td>
-            <td></td>
+            <td>
+              
+            </td>
             <td><%= day.reason_for_application%></td>
-            <td></td>
+            <td>
+               <% if day.request_overtime_status == "申請中"%>
+                 <%="#{day.overtime_request_superior}へ残業#{day.request_overtime_status}" %><br>
+               <% elsif (day.request_overtime_status == "承認") || (day.request_overtime_status =="否認") %>
+                <%= "#{day.overtime_request_superior}より残業#{day.request_overtime_status}"%><br>
+               <% end %>
+              
+            </td>
           </tr>
           <% end %>
         </tbody>
