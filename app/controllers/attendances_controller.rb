@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_overtime_request]
-  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval,:update_overtime_approval]
   before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
@@ -66,10 +66,11 @@ class AttendancesController < ApplicationController
   def update_overtime_approval
     overtime_approval_params.each do |id,item|
       attendance = Attendance.find(id)
-      if item[:opvertijme_check]=="1"
+      if item[:overtime_check]=="1"
         if item[:request_overtime_status]=="なし"
           attendance.change_end_time = nil
           attendance.overtime_next_day = nil
+          attendance.reason_for_application = nil
           attendance.overtime_request_superior = nil
         end
         attendance.update(item)
@@ -280,7 +281,7 @@ class AttendancesController < ApplicationController
    end
    
    def overtime_approval_params
-     params.require(:attenedance).permit([:request_overtime_status,:overtime_check])[:attendances]
+     params.require(:user).permit(attendances: [:request_overtime_status,:overtime_check])[:attendances]
    end
 
    # 勤怠情報修正承認・否認時のストロングパラメーター

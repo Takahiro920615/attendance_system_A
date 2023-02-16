@@ -130,12 +130,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td><%= day.reason_for_application %></td>
             <td>
-              <% if day.attendance_approval_status == "申請中" %>
-                <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.attendance_approval_status}"%>
-              <% elsif day.attendance_approval_status =="承認" || day.attendance_approval_status == "否認" %>
-                <%= "#{day.attendances_request_superiors}より勤怠#{day.attendance_approval_status}"%>
+              <% if day.request_overtime_status == "申請中" %>
+                <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.request_overtime_status}"%>
+              <% elsif day.request_overtime_status =="承認" || day.request_overtime_status == "否認" %>
+                <%= "#{day.attendances_request_superiors}より勤怠#{day.request_overtime_status}"%>
               <% end %>
             </td>
            
