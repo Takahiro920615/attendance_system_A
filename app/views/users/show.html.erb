@@ -133,9 +133,9 @@
             <td><%= day.reason_for_application %></td>
             <td>
               <% if day.request_overtime_status == "申請中" %>
-                <%= "#{day.attendances_request_superiors}へ勤怠変更#{day.request_overtime_status}"%>
+                <%= "#{day.overtime_request_superior}へ勤怠変更#{day.request_overtime_status}"%>
               <% elsif day.request_overtime_status =="承認" || day.request_overtime_status == "否認" %>
-                <%= "#{day.attendances_request_superiors}より勤怠#{day.request_overtime_status}"%>
+                <%= "#{day.overtime_request_superior}より残業#{day.request_overtime_status}"%>
               <% end %>
             </td>
            
