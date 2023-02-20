@@ -11,8 +11,12 @@ class UsersController < ApplicationController
    @superiors = User.where(superior: true).where.not(id: @user.id)
    @one_month_approval_sum = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").count
    @attendances_sum = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").count
-
-   
+    respond_to do |format|
+        format.html
+        format.csv do |csv|
+          send_attendances_csv(@attendances)
+      end
+    end   
    end
   
   
@@ -97,7 +101,7 @@ class UsersController < ApplicationController
     end
   end
   
-  
+ 
   
 
 
@@ -116,4 +120,33 @@ class UsersController < ApplicationController
     def workers_member
        @user.attendances.where(started_at:present, finished_at:blank)
     end
+    
+    def send_attendances_csv(attendances)
+        bom = "\uFEFF"
+        
+        csv_data = CSV.generate do |csv|
+          header = %w(日付 出勤時間 退勤時間)
+          csv << header
+          
+          attendances. each do |day|
+              column_values = [
+                  day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})"),
+                  if day.started_at.present? && (day.attendance_approval_styatus == "承認").present?
+                      l(day.started_at, format: :time)
+                  else
+                      nil
+                  end,
+                  if day.finished_at.present? && (day.attendance_approval_status == "承認").present?
+                      l(day.finished_at, format: :time)
+                  else
+                      nil
+                  end
+              ]
+              csv << column_values
+          end
+        end
+        send_data(csv_data, filename: "勤怠一覧.csv")
+    end
+  
+  
 end
