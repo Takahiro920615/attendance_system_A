@@ -33,18 +33,25 @@
   <% if @user.superior && current_user == @user %>
    <% if  @one_month_approval_sum > 0 %>
     <%= link_to "[ 所属長承認申請のお知らせ ]", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %>
-    <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span>
+    <span style="border: solid 3px red;"><%= link_to "#{@one_month_approval_sum}件の通知があります", edit_one_month_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></span><br>
    <% else %>
-    <%= "[ 所属長承認申請のお知らせ ]" %>
+    <%= "[ 所属長承認申請のお知らせ ]" %><br>
    <% end %>
-    <p><%=link_to "[  勤怠変更申請のお知らせ ]",edit_attendance_change_approval_user_attendance_path(@user), remote: true, class: "notice-color" %></p>
-    <p><%=link_to "[ 残業申請のお知らせ]",edit_overtime_approval_user_attendance_path(@user), remote: true, class: "notice-color"%></p>
+   <% if @attendances_sum > 0 %>
+     <%=link_to "[  勤怠変更申請のお知らせ ]",edit_attendance_change_approval_user_attendance_path(@user), remote: true, class: "notice-color" %>
+     <span style="border: solid 3px red;"><%= link_to "#{@attendances_sum}件の通知があります",edit_attendance_change_approval_user_attendance_path(@user), remote: true, class: "notice-color"%></span><br>
+   <% else %>
+     <%= "[勤怠変更申請のお知らせ]"%><br>
+   <% end %>
+   <% if @attendance_overtime_sum > 0%>
+     <%=link_to "[ 残業申請のお知らせ]",edit_overtime_approval_user_attendance_path(@user), remote: true, class: "notice-color"%>
+     <span style="border: solid 3px red;"><%= link_to "#{@attendance_overtime_sum}件の通知があります",edit_overtime_approval_user_attendance_path(@user), remote: true, class: "notice-color" %><br>
+   <% else %>
+     <%= "[残業申請のお知らせ]"%>
+   <% end %>
   <% end %>
-  
-  
-  
-   
 </div>
+
 
 
 <!----- ボタン箇所--->
