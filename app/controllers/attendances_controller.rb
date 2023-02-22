@@ -152,7 +152,7 @@ class AttendancesController < ApplicationController
           a_count+= 1
           attendance.update!(item)
          end
-         attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, next_day: nil,) if item[:attendance_approval_status] == "なし"
+         attendance.update(after_started_at: nil, after_finished_at: nil, note: nil,attendance_approval_status:nil, next_day: nil,) if item[:attendance_approval_status] == "なし"
        end
      end
      if a_count > 0

@@ -69,7 +69,7 @@
         <th rowspan = "3">残業指示</th>
         <th rowspan = "3">日付</th>
         <th rowspan = "3">曜日</th>
-        <th colspan = "8">実績</th>
+        <th colspan = "6">実績</th>
         <th colspan = "7" >所定外勤務</th>
       </tr>
       <tr>
@@ -85,7 +85,7 @@
       <tr>
         <td>時</td>
         <td>分</td>
-        <td colspan="2"></td>
+        <td colspan ="2">勤怠ボタン</td>
         <td>時</td>
         <td>分</td>
         <td>時</td>
@@ -98,41 +98,20 @@
             <td><%= link_to '残業申請', edit_overtime_request_user_attendance_path(@user,day), remote: true, class: "btn btn-primary"%></td>
             <td><%= l(day.worked_on,format: :short) %></td>
             <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-            <td>
-              <% if day.after_started_at.present? %>
-              <%= l(day.after_started_at, format: :hour) %>
-              <% else %>
-              <%= l(day.started_at, format: :hour) if day.started_at.present? %>
-              <% end %>
-            </td>
-            <td>
-              <% if day.after_started_at.present? %>
-              <%= l(day.after_started_at,format: :minute)%>
-              <% else %>
-              <%= l(day.started_at.floor_to(15.minutes),format: :minute) if day.started_at.present? %>
-              <% end %>
-            </td>
-            <td></td>
-            <td>
+            <td><%= l(day.started_at, format: :hour) if day.started_at.present?%></td>
+            <td><%= l(day.started_at, format: :minute) if day.started_at.present?%></td>
+            <td colspan = "2">
                <% if btn_text = attendance_state(day) %>
                  <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
                <% end %>
             </td>
+            <td><%= l(day.finished_at, format: :hour) if day.finished_at.present?%></td>
+            <td><%= l(day.finished_at, format: :minute) if day.finished_at.present?%></td>
             <td>
-              <% if day.after_finished_at.present?%>
-              <%= l(day.after_finished_at,format: :hour)%>
-              <% else %>
-              <%=l(day.finished_at,format: :hour) if day.finished_at.present? %>
+              <% if day.started_at.present? && day.finished_at.present?%>
+               <%= working_times(day.started_at, day.finished_at)%>
               <% end %>
             </td>
-            <td>
-              <% if day.after_finished_at.present?%>
-              <%= l(day.after_finished_at,format: :minute)%>
-              <% else %>
-              <%=l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %>
-              <% end %>
-            </td>
-            <td></td>
             <td><%= day.note%></td>
             <td></td>
             <td></td>
@@ -145,8 +124,8 @@
                 <%= "#{day.overtime_request_superior}より残業#{day.request_overtime_status}"%>
               <% end %>
             </td>
-           
           </tr>
+          
           <% end %>
         </tbody>
        
@@ -154,10 +133,14 @@
          <tr>
           <td></td>
           <td></td>
+          <td colspan ="7"></td>
           <td></td>
-          <td colspan ="6"></td>
-          <td colspan = "6"></td>
-          <td>
+          <td rowspan = "3"></td>
+          <td rowspan = "3"></td>
+          <td rowspan = "3"></td>
+          <td rowspan = "3"></td>
+           <td rowspan = "3"></td>
+          <td rowspan = "3">
            <div class = "application-form">
             <% if current_user %>
               <% day = @user.attendances.find_by(worked_on: @first_day)%>
@@ -178,6 +161,13 @@
             <% end %>
             </div>
            </td>
+         </tr>
+           <td></td>
+           <td></td>
+           <td colspan = "7"></td>
+           <td></td>
+         <tr>
+         </tr>
     </tfoot>
   </table> 
 </div>
