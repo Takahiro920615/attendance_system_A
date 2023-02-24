@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:edit_one_month_approval,:update_one_month_approval,:attendance_log,:edit_overtime_request,:edit_attendance_change_approval]
-  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval,:update_overtime_approval]
-  before_action :set_user_id, only: [:edit_one_month_approval, :update_one_month_approval]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:attendance_log,:edit_overtime_request,:edit_attendance_change_approval]
+  before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval,:update_overtime_approval, :edit_one_month_approval, :update_one_month_approval]
+  
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
   before_action :select_superiors, only: [:edit_one_month, :update_change_attendance]
@@ -255,7 +255,7 @@ class AttendancesController < ApplicationController
          flash[:danger] = "承認確認のチェックを入れてください。"
        end
      end
-     redirect_to user_url(@user.id)
+     redirect_to user_url(@user)
  end
 
 
