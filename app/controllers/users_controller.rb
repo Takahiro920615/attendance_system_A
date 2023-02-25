@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only:[:show,:edit, :update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation]
+  before_action :set_user, only:[:show,:edit,:update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation]
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
-  before_action :admin_user, only: [:destroy,:edit_basic_info,:update_basic_info]
+  before_action :admin_user, only: [:index,:edit,:worker,:destroy,:edit_basic_info,:update_basic_info]
   before_action :set_one_month, only: [:show, :show_confirmation]
   before_action :select_superiors, only: [:show]
   
@@ -129,7 +129,7 @@ class UsersController < ApplicationController
           attendances. each do |day|
               column_values = [
                   day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})"),
-                  if day.started_at.present? && (day.attendance_approval_styatus == "承認").present?
+                  if day.started_at.present? && (day.attendance_approval_status == "承認").present?
                       l(day.started_at, format: :time)
                   else
                       nil
