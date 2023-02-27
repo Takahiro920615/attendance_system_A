@@ -114,8 +114,8 @@
               <% end %>
             </td>
             <td><%= day.note%></td>
-            <td></td>
-            <td></td>
+            <td><%= l(day.change_end_time, format: :hour) if day.change_end_time.present?%></td>
+            <td><%= l(day.change_end_time, format: :minute) if day.change_end_time.present?%></td>
             <td></td>
             <td><%= day.reason_for_application %></td>
             <td>

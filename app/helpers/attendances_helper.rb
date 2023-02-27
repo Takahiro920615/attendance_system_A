@@ -21,5 +21,9 @@ module AttendancesHelper
         format("%.2f", (change_end_time.hour - designated_work_end_time.hour) + (change_end_time.min - designated_work_end_time.min) / 60.0)
       end
     end
+    
+    # def overtime_hours( change,constant)
+    # format("%.2f",((change_end_time.hour*60)- (designated_work_end_time.hour*60))/60.0)
+    # end
         
 end

@@ -129,12 +129,12 @@ class UsersController < ApplicationController
           attendances. each do |day|
               column_values = [
                   day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})"),
-                  if day.started_at.present? && (day.attendance_approval_status == "承認").present?
+                  if day.started_at.present? 
                       l(day.started_at, format: :time)
                   else
                       nil
                   end,
-                  if day.finished_at.present? && (day.attendance_approval_status == "承認").present?
+                  if day.finished_at.present? 
                       l(day.finished_at, format: :time)
                   else
                       nil

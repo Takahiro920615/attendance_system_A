@@ -1,6 +1,6 @@
 class User < ApplicationRecord
  has_many :attendances, dependent: :destroy
- has_many :applies, dependent: :destroy
+ # has_many :applies, dependent: :destroy
  
   validates :name, presence: true
   attr_accessor :remember_token
