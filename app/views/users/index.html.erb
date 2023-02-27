@@ -1,23 +1,22 @@
 <% provide(:title, "ALL USERS")%>
 <% provide(:class_text, "更新") %>
 
-<div class = "container1">
-  <div class = "col-md-10 col-md-offset-1">
-  <h1>USER一覧</h1>
-   
-    <table class = "table table-condensed table-hover" id="table-users">
-     
-      
-      <%= form_with(url: import_users_path)  do |f|%>
+ <h1>USER一覧</h1>
+ 
+ <%= form_with(url: import_users_path)  do |f|%>
         <%= f.file_field :file, accept: 'csv' %>
         <%= f.submit "インポート", class: "btn btn-primary csv-button"%>
       <% end %>
-      
+
+<div class = "container1">
+  <div class = "col-md-10 col-md-offset-1">
+    <table class = "table table-condensed table-hover" id="table-users">
       <div class = "col-md-11 col-md-offset-1">
       <% @users.each do |user|%>
+        <% unless user.admin? %>
         <table>
           <tr>
-            <td><%= user.name%></td>
+            <td><%= user.name %></td>
           </tr>
             <td>|<%= link_to "削除",user,method: :delete,
             data: {confirm: "#{user.name}を削除してもよろしいでしょうか？"},
@@ -36,6 +35,7 @@
             </div>
           </div>
         </div>
+        <% end %>
       <% end %>
       </div>
     

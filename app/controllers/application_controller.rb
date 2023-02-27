@@ -33,9 +33,6 @@ class ApplicationController < ActionController::Base
     
     def admin_user
       redirect_to root_url unless current_user.admin?
-      if current_user.admin == false
-      flash[:danger] = "管理権限がありません"
-      end
     end
     
    def select_superiors
