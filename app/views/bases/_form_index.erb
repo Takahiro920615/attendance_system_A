@@ -1,12 +1,12 @@
-<%= form_with(model: @base, url: bases_path, local:true, method: :post) do |f|%>
+<%= form_with(model: @base, url: bases_path, local: true, method: :post) do |f|%>
   <%= f.label "拠点番号", class: "label-new"%>
-  <%= f.number_field :base_number, class: "form-control"%>
+  <%= f.number_field :base_no, class: "form-control"%>
   
   <%= f.label "拠点名", class: "label-new"%>
-  <%= f.text_field :base_namer, class: "form-control"%>
+  <%= f.text_field :base_name, class: "form-control"%>
   
-  <%= f.label "拠点種類", class: "label-new"%>
-  <%= f.select :attendance_type,["出勤","退勤"], {include_blank: ""}, class: "form-control"%>
+  <%= f.label "勤怠状況", class: "label-new"%>
+  <%= f.text_field :attendance_type, class: "form-control"%>
   
   <%= f.submit "拠点の追加", class: "btn btn-primary btn-block btn-new" %>
 <% end %>

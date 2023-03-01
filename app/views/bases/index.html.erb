@@ -1,8 +1,7 @@
 <% provide(:title,"拠点")%>
-
-<h1>拠点一覧</h1>
   <div class = "container">
-    <table class = "table table-bordered table-striped" id="base_table">
+    <h1>拠点一覧</h1>
+    <table class = "table table-bordered table-striped" id="base_tables">
       <thead>
         <tr>
           <th colspan = "2"></th>
@@ -11,21 +10,20 @@
           <th>拠点名</th>
           <th>勤怠種類</th>
         </tr>
-        <% @bases.each do |base|%>
+      </thead>
+        <% @bases.each do |base| %>
         <tbody>
         <tr>
-          <td colspan = "2"><%= link_to "修正",edit_basis_path(base), class: "btn btn-primary" %></td>
+          <td colspan = "2"><%= link_to "修正",edit_basis_path(base), remote: true, class: "btn btn-primary" %></td>
           <td colspan = "2"><%= link_to "削除",base, method: :delete, data: {confirm: "削除してよろしいですか？"}, 
-          class: "btn btn-primary"%></td>
+          class: "btn btn-danger"%></td>
           <td><%= base.base_no %></td>
           <td><%= base.base_name%></td>
           <td><%= base.attendance_type%></td>
         </tr>
         </tbody>
         <% end %>
-        
-      </thead>
-    </table>
+    </table>  
    
     <div class = "panel panel-default">
       <div class = "panel-heading">
@@ -41,3 +39,5 @@
     </div> 
 </div>
 
+<!--<モーダル表示>-->
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
