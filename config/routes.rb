@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'attendance_page#top'
+  # fly.ioのため追加
+  root "rails/welcome#index"
   
   get '/signup', to:'users#new'
   get '/login', to:'sessions#new'
