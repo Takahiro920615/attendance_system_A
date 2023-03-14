@@ -3,8 +3,9 @@ class BasesController < ApplicationController
  before_action :set_base, only: [:index,:edit]
  
   def index
-    @bases = Base.all
+    @bases = Base.all.order(id: "DESC")
     @base = Base.new
+  
   end 
   
   
