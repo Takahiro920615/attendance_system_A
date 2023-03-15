@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only:[:show,:edit,:update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation]
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
-  before_action :admin_user, only: [:index,:edit,:worker,:destroy,:edit_basic_info,:update_basic_info]
+  before_action :admin_user, only: [:index,:worker,:destroy,:edit_basic_info,:update_basic_info]
   before_action :set_one_month, only: [:show, :show_confirmation]
   before_action :select_superiors, only: [:show]
   
@@ -109,10 +109,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation,:department,:designated_work_start_time, :designated_work_end_time)
     end
+
     
     
     def basic_info_params
-      params.require(:user).permit(:department, :basic_time, :work_time)
+      params.require(:user).permit(:name, :email, :department, :employee_number, 
+                                   :uid, :designated_work_start_time, :designated_work_end_time,
+                                   :password, :password_confirmation)
     end
     
     def workers_member
