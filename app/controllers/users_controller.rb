@@ -36,12 +36,13 @@ class UsersController < ApplicationController
        render :new
      end
    end
- 
+
  def index
    @users = User.paginate(page: params[:page]).order(:id)
  end
  
   def edit
+      
   end
   
   def update
