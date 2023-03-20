@@ -40,7 +40,7 @@ class BasesController < ApplicationController
   end
     
   def destroy
-   @base = Base.find_by(params[:id])
+   @base = Base.find(params[:id])
     @base.destroy
     flash[:success] = "拠点情報を削除しました。"
     redirect_to bases_url
