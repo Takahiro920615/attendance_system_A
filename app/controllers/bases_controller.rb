@@ -5,9 +5,7 @@ class BasesController < ApplicationController
   def index
     @bases = Base.all.order(id: "DESC")
     @base = Base.new
-  
   end 
-  
   
   def create
     @base = Base.new(base_params)
@@ -16,7 +14,7 @@ class BasesController < ApplicationController
        redirect_to bases_url
      else
       flash[:danger] = "拠点情報を追加できません"
-      @base = Base.all
+      @bases = Base.all
       render :index
      end
   end
