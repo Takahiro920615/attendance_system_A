@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only:[:show,:edit,:update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation]
+  before_action :set_user, only:[:show,:edit,:update,:destroy,:edit_basic_info,:update_basic_info,:show_confirmation,:form_edit,:info_correction_user_path]
   before_action :logged_in_user, only: [:show,:edit,:update] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:edit,:update] #管理者のみに変更する(admin)
   before_action :admin_user, only: [:index,:worker,:destroy,:edit_basic_info,:update_basic_info]
@@ -98,6 +98,12 @@ class UsersController < ApplicationController
       end
       redirect_to users_url
     end
+  end
+  
+  def form_edit
+  end
+  
+  def info_correction
   end
   
  

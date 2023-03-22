@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   member do
    get 'edit_basic_info'
    patch 'update_basic_info'
+   get 'form_edit'
+   get 'info_correction'
    get 'attendances/edit_one_month'
    patch 'attendances/update_one_month'
    #勤怠を確認する
