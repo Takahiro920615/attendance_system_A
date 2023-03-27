@@ -1,4 +1,10 @@
 class AttendancePageController < ApplicationController
-  def top
-  end
+  # before_action :set_user, only: [:top]
+  # def top
+  # if logged_in?
+  #   if @user.admin?
+  #     redirect_to @user
+  #   end
+  # end
+  # end
 end

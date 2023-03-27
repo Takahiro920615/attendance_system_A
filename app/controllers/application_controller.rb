@@ -39,6 +39,13 @@ class ApplicationController < ActionController::Base
    @superiors = User.all.where(superior: true).where.not(id: @user)
    end
    
+  def admin_ban
+    if current_user.admin?
+      flash[:danger] = "権限がありません"
+      redirect_to root_url
+    end
+  end
+   
 
 
   def set_one_month
