@@ -110,6 +110,7 @@ class AttendancesController < ApplicationController
            a_count += 1
            attendance.update!(item)
           
+          
          end
         end
          
