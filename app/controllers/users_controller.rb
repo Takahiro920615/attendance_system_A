@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:index,:worker,:destroy,:edit_basic_info,:update_basic_info,:form_edit,:info_correction]
   before_action :set_one_month, only: [:show, :show_confirmation]
   before_action :select_superiors, only: [:show]
-  before_action :admin_ban, only: :show
+  before_action :admin_ban, only: [:show, :form_edit]
   
    def show
    @worked_sum = @attendances.where.not(started_at:nil).count
