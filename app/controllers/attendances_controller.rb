@@ -265,7 +265,7 @@ class AttendancesController < ApplicationController
       @attendances = @user.attendances.where(worked_on: @first_day..@first_day.end_of_month).order(:worked_on)
    end
  end
-debugger
+
  
  
   private
