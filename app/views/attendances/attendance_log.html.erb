@@ -29,7 +29,7 @@
       <% if @first_day.present? %>
         <% @attendances.each do |day|%>
         <tr>
-          <td><%= day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})") %></td>
+          <td><%= day.worked_on.strftime("%Y年%m月%d日(#{$days_of_the_week[day.worked_on.wday]})") if day.worked_on.present? %></td>
           <td><%= l(day.before_started_at, format: :time) if day.started_at.present? %></td>
           <td><%= l(day.before_finished_at, format: :time) if day.finished_at.present? %></td>
           <td><%= l(day.after_started_at, format: :time) if day.after_started_at.present? %></td>
