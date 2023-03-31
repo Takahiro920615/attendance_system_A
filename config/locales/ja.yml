@@ -205,7 +205,7 @@ ja:
       hour: "%H時"
       minute: "%M分"
       long: "%Y/%m/%d %H:%M"
-      short: "%m/%d %H:%M"
+      short: "%m/%d"
       time: "%H：%M"
       month: "%m月"
       
