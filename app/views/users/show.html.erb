@@ -151,6 +151,7 @@
            <div class = "application-form">
             <% if current_user %>
               <% day = @user.attendances.find_by(worked_on: @first_day)%>
+              <% if day %>
                 <%= form_with(model: @user, url: attendances_update_one_month_request_user_path(@user), local: true, method: :patch) do |f| %>
                   <%= f.fields_for "attendances[]", day do |attendance|%>
                     <%= "所属長承認: "%>
@@ -165,6 +166,7 @@
                   <% end %>
                     <br><%= f.submit "申請", class: "btn btn-primary" %></br>
                 <% end %>
+              <% end %>
             <% end %>
             </div>
            </td>
