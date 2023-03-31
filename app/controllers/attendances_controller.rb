@@ -1,5 +1,5 @@
 class AttendancesController < ApplicationController
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:attendance_log,:edit_attendance_change_approval,:update_overtime_approval]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :receive_change_attendance,:attendance_log,:edit_attendance_change_approval]
   before_action :set_user_ids, only: [:edit_attendance_change_approval,:update_attendance_change_approval,:edit_overtime_request,:update_overtime_request,:edit_overtime_approval,:update_overtime_approval, :edit_one_month_approval, :update_one_month_approval]
   before_action :logged_in_user,only: [:update, :edit_one_month]
   before_action :set_one_month, only: [:edit_one_month,:edit_overtime_request]
@@ -77,7 +77,7 @@ class AttendancesController < ApplicationController
       else
          flash[:danger] = "残業申請の承認に失敗しました"
       end
-      redirect_to user_url(@user)
+      redirect_to @user
     end
   end
   
