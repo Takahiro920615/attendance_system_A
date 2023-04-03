@@ -34,7 +34,7 @@
           <td><%= l(day.before_started_at, format: :time) if day.before_started_at.present? %></td>
           <td><%= l(day.before_finished_at, format: :time) if day.before_finished_at.present? %></td>
           <td><%= l(day.after_started_at, format: :time) if day.after_started_at.present? %></td>
-          <td><%= l(day.after_finished_at, format: :time) if day.after_finished_at.present? %></td>
+          <td><%= l(day.after_finished_at, format: :time) if day.after_after_finished_at.present? %></td>
           <td><%= day.attendances_request_superiors %></td>
           <td><%= day.updated_at.strftime("%Y年%m月%d日") %></td>
         </tr>

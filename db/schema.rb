@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(version: 20230329150402) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2023-03-31 23:00:00"
-    t.datetime "work_time", default: "2023-03-31 22:30:00"
-    t.datetime "designated_work_start_time", default: "2023-03-31 23:30:00"
-    t.datetime "designated_work_end_time", default: "2023-04-01 09:00:00"
+    t.datetime "basic_time", default: "2023-04-02 23:00:00"
+    t.datetime "work_time", default: "2023-04-02 22:30:00"
+    t.datetime "designated_work_start_time", default: "2023-04-02 23:30:00"
+    t.datetime "designated_work_end_time", default: "2023-04-03 09:00:00"
     t.integer "employee_number"
     t.integer "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
