@@ -30,8 +30,6 @@
                    <% if day.started_at.present?%>
                     <% day.after_started_at = day.started_at %>
                     <%= attendance.time_field :after_started_at, class: "form-control"%>
-                   <% else %>
-                    <%= attendance.time_field :after_started_at, class: "form-control"%>
                    <% end %>
                   </td>
                   <td>
