@@ -247,7 +247,7 @@ class AttendancesController < ApplicationController
   private
   
    def attendances_params
-      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors, :note])[:attendances]
+      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors, :change])[:attendances]
    end 
    
    #残業申請内容のストロングパラメーター
