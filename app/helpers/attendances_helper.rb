@@ -10,7 +10,10 @@ module AttendancesHelper
     end 
     
     def working_times(start, finish)
-      format("%.2f",(((finish - start)/60)/60)+24)
+      if attendance_approval_check =="1"
+        format("%.2f",(((finish - start)/60)/60)+24)
+      end
+        format("%.2f",(((finish - start)/60)/60))
     end
     
     #残業時間のフォーマット
