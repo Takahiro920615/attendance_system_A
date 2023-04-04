@@ -10,7 +10,7 @@ module AttendancesHelper
     end 
     
     def working_times(start, finish)
-      format("%.2f",(((finish - start)/60)/60))
+      format("%.2f",(((finish - start)/60)/60)+24)
     end
     
     #残業時間のフォーマット
@@ -18,7 +18,7 @@ module AttendancesHelper
       if overtime_next_day == "1"
         format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
       else
-        format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0)+24)
+        format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
       end
     end
     
