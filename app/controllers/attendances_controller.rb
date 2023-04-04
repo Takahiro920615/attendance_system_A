@@ -175,9 +175,10 @@ class AttendancesController < ApplicationController
            if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
                attendance.before_started_at = attendance.after_started_at
                attendance.before_finished_at = attendance.after_finished_at
+               item[:started_at] =attendance.after_started_at
+               item[:finished_at] =attendance.after_finished_at
            end
-          attendance.started_at = attendance.after_started_at
-          attendance.finished_at = attendance.after_finished_at
+         
          end
         a_count += 1
         attendance.update(item)
