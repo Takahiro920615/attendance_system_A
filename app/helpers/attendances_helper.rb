@@ -11,7 +11,7 @@ module AttendancesHelper
     
     def working_times(start, finish, change)
       if change == "1"
-        format("%.2f", (((finish - start) / 60) / 60) + 24)
+        format("%.2f", (((finish - start) / 60) / 60)+24)
       else
         format("%.2f", ((finish - start) / 60) / 60)
       end
