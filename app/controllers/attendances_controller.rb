@@ -201,6 +201,7 @@ class AttendancesController < ApplicationController
          if item[:attendance_approval_status] == "承認"
            attendance.before_started_at = attendance.started_at
            attendance.before_finished_at = attendance.finished_at
+         else
            item[:started_at] = attendance.after_started_at
            item[:finished_at] = attendance.after_finished_at
          end
@@ -292,7 +293,7 @@ class AttendancesController < ApplicationController
    
    #勤怠変更承認のストロングパラメーター
    def attendance_approval_params
-       params.require(:user).permit(attendances:[:attendance_approval_status,:attendance_approval_check])[:attendances]
+       params.require(:user).permit(attendances:[:before_started_at,:before_finished_at,:attendance_approval_status,:attendance_approval_check])[:attendances]
     
    end
    
