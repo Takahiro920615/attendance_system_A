@@ -175,14 +175,14 @@ class AttendancesController < ApplicationController
            if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
                attendance.before_started_at = attendance.after_started_at
                attendance.before_finished_at = attendance.after_finished_at
-               item[:started_at] = attendance.after_started_at
-               item[:finished_at] = attendance.after_finished_at
            end
+          attendance.started_at = attendance.after_started_at
+          attendance.finished_at = attendance.after_finished_at
          end
         a_count += 1
         attendance.update(item)
        end
-       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:nil, next_day: nil) if item[:attendances_approval_status] == "なし"
+       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:false, next_day: nil) if item[:attendances_approval_status] == "なし"
      end 
    end       
    if a_count > 0
