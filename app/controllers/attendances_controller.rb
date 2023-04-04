@@ -199,7 +199,7 @@ class AttendancesController < ApplicationController
      if item[:attendance_approval_check] == "1"
        unless item[:attendance_approval_status] == "申請中"|| item[:attendance_approval_status] == "なし"
          if item[:attendance_approval_status] == "承認"
-           if attendance.before_started_at.blanck? && attendance.before_finished_at.blanck?
+           if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
                attendance.before_started_at = attendance.after_started_at
                attendance.before_finished_at = attendance.after_finished_at
            end
