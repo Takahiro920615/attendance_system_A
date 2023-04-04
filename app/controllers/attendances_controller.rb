@@ -137,34 +137,7 @@ class AttendancesController < ApplicationController
    
    #勤怠変更申請のお知らせモーダル更新
  
-#   def update_attendance_change_approval
-#      a_count = 0
-#      attendance_approval_params.each do |id, item|
-#       attendance = Attendance.find(id)
-#       if item[:attendance_approval_check] == "1"
-#          unless item[:attendance_approval_status] == "申請中"|| item[:attendance_approval_status] == "なし"
-#           if item[:attendance_approval_status] =="承認"
-#             if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
-#             attendance.before_started_at = attendance.started_at
-#             attendance.before_finished_at = attendance.finished_at
-#             end
-#             attendance.started_at = attendance.after_started_at
-#             attendance.finished_at =attendance.after_finished_at
-#           end
-#           a_count+= 1
-#           attendance.update!(item)
-#          end
-#          attendance.update(after_started_at: nil, after_finished_at: nil, note: nil,attendance_approval_status:nil, attendance_approval_check:nil) if item[:attendance_approval_status] == "なし"
-#       end
-#      end
-#      if a_count > 0
-#       flash[:success]="勤怠変更の承認に成功しました"
-#      else
-#       flash[:danger] = "勤怠変更の承認に失敗しました。"
-#      end
-#      redirect_to user_url(@user)
-#   end
-   
+
 
 #  def receive_change_attendance
 #   @change_attendance_requests = Attendance.order(:worked_on).where(edit_attendance_boss: @user.id, edit_attendance_request_status: "申請中")
@@ -202,10 +175,10 @@ class AttendancesController < ApplicationController
            if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
                attendance.before_started_at = attendance.after_started_at
                attendance.before_finished_at = attendance.after_finished_at
+           else attendance.before_started_at.present? && attendance.before_finished_at.present?
+               item[:started_at] = attendance.after_started_at
+               item[:finished_at] = attendance.after_finished_at
            end
-         else
-           item[:started_at] = attendance.after_started_at
-           item[:finished_at] = attendance.after_finished_at
          end
         a_count += 1
         attendance.update(item)
