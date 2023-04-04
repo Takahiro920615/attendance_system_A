@@ -100,10 +100,7 @@ class AttendancesController < ApplicationController
              flash[:danger] = "退勤時間が必要です"
              redirect_to attendances_edit_one_month_user_url(date:params[:date])
            return
-           elsif item[:after_started_at].present? && item[:after_finished_at].present? 
-            flash[:danger] = "時刻に誤りがあります。"
-            redirect_to attendances_edit_one_month_user_url(date: params[:date])
-           return
+           
            end
            attendance = Attendance.find(id)
            attendance.attendance_approval_status = "申請中"

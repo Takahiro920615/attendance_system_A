@@ -9,8 +9,8 @@ module AttendancesHelper
     return false
     end 
     
-    def working_times(start, finish, change)
-      if change =="1"
+    def working_times(start, finish, attendance_approval_check)
+      if attendance_approval_check =="1"
         format("%.2f",(((finish - start)/60)/60)+24)
       else
         format("%.2f",(((finish - start)/60)/60))
