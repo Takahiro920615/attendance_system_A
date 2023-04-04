@@ -11,7 +11,7 @@ module AttendancesHelper
     
     def working_times(started_at, finished_at, change)
       if finished_at.present? && started_at.present?
-        if change 
+        if change.to_s =="1" 
           format("%.2f",(((finished_at.hour - started_at.hour))/60.0/60.0)+24)
         else
           format("%.2f",((finished_at - started_at)/60.0)/60.0)
