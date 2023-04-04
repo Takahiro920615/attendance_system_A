@@ -10,7 +10,7 @@ module AttendancesHelper
     end 
     
     def working_times(start, finish)
-      if attendance_approval_check =="1"
+      if change =="1"
         format("%.2f",(((finish - start)/60)/60)+24)
       end
         format("%.2f",(((finish - start)/60)/60))
