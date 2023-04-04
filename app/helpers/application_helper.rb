@@ -9,4 +9,16 @@ module ApplicationHelper
       page_name + "|" + base_title
     end
   end
+  
+  def working_times(started_at, finished_at, change)
+      if finished_at.present? && started_at.present?
+        if change =="1" 
+          format("%.2f",(((finished_at.hour - started_at.hour))/60.0/60.0)+24)
+        else
+          format("%.2f",((finished_at - started_at)/60.0)/60.0)
+            
+        end
+      end
+  end
+    
 end
