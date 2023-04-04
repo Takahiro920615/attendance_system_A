@@ -9,11 +9,12 @@ module AttendancesHelper
     return false
     end 
     
-    def working_times(start, finish)
-      if change =="1"
-        format("%.2f",(((finish - start)/60)/60)+24)
+    def working_times(start, finish, change)
+      if change == "1"
+        format("%.2f", (((finish - start) / 60) / 60) + 24)
+      else
+        format("%.2f", ((finish - start) / 60) / 60)
       end
-        format("%.2f",(((finish - start)/60)/60))
     end
     
     #残業時間のフォーマット
