@@ -175,7 +175,6 @@ class AttendancesController < ApplicationController
            if attendance.before_started_at.blank? && attendance.before_finished_at.blank?
                attendance.before_started_at = attendance.after_started_at
                attendance.before_finished_at = attendance.after_finished_at
-           else attendance.before_started_at.present? && attendance.before_finished_at.present?
                item[:started_at] = attendance.after_started_at
                item[:finished_at] = attendance.after_finished_at
            end
