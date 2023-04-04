@@ -208,7 +208,7 @@ class AttendancesController < ApplicationController
         a_count += 1
         attendance.update(item)
        end
-       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil, next_day: nil) if item[:attendances_approval_status] == "なし"
+       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:nil, next_day: nil) if item[:attendances_approval_status] == "なし"
      end 
    end       
    if a_count > 0
@@ -293,7 +293,7 @@ class AttendancesController < ApplicationController
    
    #勤怠変更承認のストロングパラメーター
    def attendance_approval_params
-       params.require(:user).permit(attendances:[:before_started_at,:before_finished_at,:attendance_approval_status,:attendance_approval_check])[:attendances]
+       params.require(:user).permit(attendances:[:before_started_at,:before_finished_at,:started_at,:finished_at,:after_started_at,:after_finished_at,:attendance_approval_status,:attendance_approval_check])[:attendances]
     
    end
    
