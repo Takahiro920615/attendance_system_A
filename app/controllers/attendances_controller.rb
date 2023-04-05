@@ -181,7 +181,7 @@ class AttendancesController < ApplicationController
         a_count += 1
         attendance.update(item)
        end
-       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:false, change: nil) if item[:attendances_approval_status] == "なし"
+       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:false, next_day: nil, change: nil) if item[:attendances_approval_status] == "なし"
      end 
    end       
    if a_count > 0
@@ -247,7 +247,7 @@ class AttendancesController < ApplicationController
   private
   
    def attendances_params
-      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors,:change])[:attendances]
+      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors])[:attendances]
    end 
    
    #残業申請内容のストロングパラメーター
