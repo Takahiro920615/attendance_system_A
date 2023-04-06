@@ -77,8 +77,8 @@ class AttendancesController < ApplicationController
       else
          flash[:danger] = "残業申請の承認に失敗しました"
       end
-      redirect_to @user
     end
+    redirect_to @user
   end
   
   
