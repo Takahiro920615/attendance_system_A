@@ -12,7 +12,7 @@ module AttendancesHelper
     def working_times(finished_at, started_at, change)
       if finished_at.present? && started_at.present?
         if change == "1" 
-          format("%.2f",(((finished_at.tomorrow - started_at))/3600.0))
+          format("%.2f",((finished_at.tomorrow - started_at)/3600.0))
         else
           format("%.2f",((finished_at - started_at)/60.0)/60.0)
             
@@ -23,10 +23,14 @@ module AttendancesHelper
     #残業時間のフォーマット
     def overtime_culculation(change_end_time,designated_work_end_time,overtime_next_day )
       if overtime_next_day == "1"
-        format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
+        format("%.2f",(change_end_time.tomorrow - finished_at)/3600.0)
       else
-        format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
+        format("%.2f",(change_end_time - finished_at )/3600.0)
       end
+      #   format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
+      # else
+      #   format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
+      # end
     end
     
     # def overtime_hours( change,constant)
