@@ -26,6 +26,7 @@ module AttendancesHelper
         format("%.2f",(change_end_time.tomorrow - finished_at)/3600.0)
       else
         format("%.2f",(change_end_time - finished_at )/3600.0)
+          
       end
       #   format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
       # else
