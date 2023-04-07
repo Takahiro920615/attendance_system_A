@@ -10,11 +10,11 @@ module AttendancesHelper
     end 
     
     def working_times(finished_at, started_at, change)
-      if finished_at.present? && started_at.present?
+      if before_finished_at.present? && before_started_at.present?
         if change == "1" 
-          format("%.2f",((finished_at.tomorrow - started_at)/3600.0))
+          format("%.2f",((before_finished_at.tomorrow - before_started_at)/3600.0))
         else
-          format("%.2f",((finished_at - started_at)/60.0)/60.0)
+          format("%.2f",((before_finished_at - before_started_at)/60.0)/60.0)
             
         end
       end
