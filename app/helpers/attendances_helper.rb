@@ -16,7 +16,6 @@ module AttendancesHelper
           format("%.2f",((finished - started)/60.0)/60.0)
             
         end
-      end
     end
     
     #残業時間のフォーマット
