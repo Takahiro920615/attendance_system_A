@@ -9,7 +9,7 @@ module AttendancesHelper
     return false
     end 
     
-    def working_times(finished_at, started_at, change)
+    def working_times(before_finished_at, before_started_at, change)
       if before_finished_at.present? && before_started_at.present?
         if change == "1" 
           format("%.2f",((before_finished_at.tomorrow - before_started_at)/3600.0))
