@@ -24,7 +24,7 @@ module AttendancesHelper
       if overtime_next_day == "1"
         format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
       else
-        format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
+        format("%.2f",((designated_work_end_time.hour) - change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
       end
     end
     
