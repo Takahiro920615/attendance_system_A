@@ -11,27 +11,13 @@ module AttendancesHelper
     end 
     
     def working_times(after_finished_at,after_started_at,change)
-      start_time = Time.parse(after_started_at)
-      end_time = Time.parse(after_finished_at)
-      
         if change == "1" 
-          if end_time <= start_time
-            format("%.2f",(((24+ end_time.hour) - start_time.hour) + (end_time.min - start_time.min)/60.0))
-          else
-            format("%.2f",((end_time - start_time)/3600.0))
-          end
-        else change == "0"
-          format("%.2f",((end_time - start_time)/60.0)/60.0)
+          format("%.2f",((after_finished_at.tomorrow - after_started_at)/3600.0))
+        else
+          format("%.2f",((after_finished_at - after_started_at)/60.0)/60.0)
+            
         end
-  
-    
-       if start_time.hour == end_time.hour && start_time.min == end_time.min && change =="1"
-         working_hours = 24.0
-       end
-       format("%.2f", working_hours)
     end
-    
-   
     
     #残業時間のフォーマット
     def overtime_culculation(change_end_time,designated_work_end_time,overtime_next_day )
