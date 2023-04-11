@@ -241,6 +241,15 @@ class AttendancesController < ApplicationController
       @attendances = @user.attendances.where(worked_on: @first_day..@first_day.end_of_month,attendance_approval_status: "承認").order(:worked_on)
    end
  end
+ 
+ def working_times(after_finished_at,after_started_at,change)
+  if change == true
+   format("%.2f",((after_finished_at.tomorrow - after_started_at)/3600.0))
+  else
+   format("%.2f",((after_finished_at - after_started_at)/60.0)/60.0)
+  end
+ end
+
 
  
  
