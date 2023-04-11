@@ -7,6 +7,7 @@ class AddOvertimeToattendancesChangeEndTime < ActiveRecord::Migration[5.1]
     add_column :attendances, :overtime_request_superior, :string
     add_column :attendances, :request_overtime_status, :string
     add_column :attendances, :overtime_check, :boolean, default: false
+    
    
   end
 end
