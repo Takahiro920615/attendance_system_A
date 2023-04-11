@@ -11,9 +11,9 @@ module AttendancesHelper
     end 
     
     def working_times(after_finished_at,after_started_at,change)
-        if change == "1" 
-          format("%.2f",((after_finished_at+24 - after_started_at)/3600.0))
-        else
+        if change == true 
+          format("%.2f",(((24+after_finished_at) - after_started_at)/3600.0))
+        else change == false
           format("%.2f",((after_finished_at - after_started_at)/60.0)/60.0)
             
         end
@@ -23,7 +23,7 @@ module AttendancesHelper
     def overtime_culculation(change_end_time,designated_work_end_time,overtime_next_day )
       if overtime_next_day == "1"
         format("%.2f",((24-designated_work_end_time.hour) + change_end_time.hour)+ ((designated_work_end_time.min - change_end_time.min)/60.0)+24)
-      else
+      else overtime_next_day =="0"
         format("%.2f",((designated_work_end_time.hour) - change_end_time.hour) + ((designated_work_end_time.min - change_end_time.min )/60.0))
       end
     end
