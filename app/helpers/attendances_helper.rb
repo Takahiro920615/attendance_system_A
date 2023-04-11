@@ -1,5 +1,4 @@
 module AttendancesHelper
-  require 'attendances_helper'
     def attendance_state(attendance)
     # 受け取ったAttendanceオブジェクトが当日と一致するか評価します。
     if Date.current == attendance.worked_on
@@ -24,9 +23,8 @@ module AttendancesHelper
       else
         working_hours = (end_time - start_time)/60.0/60.0
       end
-    
+   end
       format("%.2f", working_hours)
-　　end
     
     #残業時間のフォーマット
     def overtime_culculation(change_end_time,designated_work_end_time,overtime_next_day )
@@ -37,8 +35,8 @@ module AttendancesHelper
       end
     end
     
+    
     # def overtime_hours( change,constant)
     # format("%.2f",((change_end_time.hour*60)- (designated_work_end_time.hour*60))/60.0)
     # end
-        
 end
