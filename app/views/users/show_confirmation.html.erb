@@ -85,7 +85,7 @@
             <td><%= l(day.finished_at.floor_to(15.minutes),format: :minute) if day.finished_at.present? %></td>
             <td>
               <% if day.started_at.present? && day.finished_at.present?%>
-                <%= str_time = working_times(day.started_at, day.finished_at) %>
+                <%= str_time = working_times(day.started_at, day.finished_at,day.change) %>
               <% end %>
             </td>
             <td><%= day.note %></td>
