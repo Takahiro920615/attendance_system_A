@@ -10,10 +10,10 @@ Bundler.require(*Rails.groups)
 module AttendanceSystemA
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.active_record.default_timezone = :local
     config.load_defaults 5.1
     config.time_zone = 'Asia/Tokyo'
-    config.i18n.default_locale =:ja
+    config.active_record.default_timezone = :local
+    config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     
 

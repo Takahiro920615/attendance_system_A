@@ -15,7 +15,7 @@
           <th>指示者確認印</th>
         </tr>
       </thead>    
-      
+    
       <tbody>
         <% @attendances.each do |day|%>
           <%= f.fields_for"attendances[]", day do |attendance|%>
@@ -35,16 +35,15 @@
                    <% end %>
                   </td>
                   <td>
-                   <% if day.finished_at.present? && day.change_end_time.nil?%>
-                     <% day.after_finished_at = day.finished_at%>
+                   <% if day.finished_at.present?%>
+                     <% day.after_finished_at = day.finished_at %>
                      <%= attendance.time_field :after_finished_at, class: "form-control"%>
                    <% else day.finished_at.present? && day.change_end_time.present? %>
                     <% day.after_finished_at = day.change_end_time%>
                     <%= attendance.time_field :after_finished_at, class: "form-control"%>
                    <% end %>
-                  
                   </td>
-                <% end %>
+                  <% end %>
                 <td><%= attendance.check_box :change %></td>
                 <td><%= overtime_culculation(day.change_end_time, @user.designated_work_end_time, day.overtime_next_day) if day.change_end_time.present?%></td>
                 <td><%= attendance.text_field :note, placeholder: "変更理由を入力してください", class: "form-control" if Date.current >= day.worked_on %></td>

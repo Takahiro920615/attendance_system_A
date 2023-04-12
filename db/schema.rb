@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230329150402) do
+ActiveRecord::Schema.define(version: 20230411143953) do
 
   create_table "applies", force: :cascade do |t|
     t.date "one_month"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20230329150402) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.datetime "worked_on"
+    t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
     t.string "note"
@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(version: 20230329150402) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2023-04-04 08:00:00"
-    t.datetime "work_time", default: "2023-04-04 07:30:00"
-    t.datetime "designated_work_start_time", default: "2023-04-04 08:30:00"
-    t.datetime "designated_work_end_time", default: "2023-04-04 18:00:00"
+    t.datetime "basic_time", default: "2023-04-11 08:00:00"
+    t.datetime "work_time", default: "2023-04-11 07:30:00"
+    t.datetime "designated_work_start_time", default: "2023-04-11 08:30:00"
+    t.datetime "designated_work_end_time", default: "2023-04-11 19:00:00"
     t.integer "employee_number"
     t.integer "uid"
     t.index ["email"], name: "index_users_on_email", unique: true

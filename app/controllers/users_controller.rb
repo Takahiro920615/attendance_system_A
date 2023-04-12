@@ -3,24 +3,23 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index,:edit,:update,:destroy,:edit_basic_info,:update_basic_info] #管理者のみに変更する(admin)
   before_action :correct_user, only: [:show,:edit,:update] 
   before_action :admin_user, only: [:index,:worker,:destroy,:edit_basic_info,:update_basic_info,:form_edit,:info_correction]
-  before_action :set_one_month, only: [:show, :show_confirmation]
+  before_action :set_one_month, only: [:show]
   before_action :select_superiors, only: [:show]
   before_action :admin_ban, only: [:show, :form_edit]
   
    def show
-   @worked_sum = @attendances.where.not(started_at:nil).count
-   @superiors = User.where(superior: true).where.not(id: @user.id)
-   @one_month_approval_sum = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").count
-   @attendances_sum = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").count
-   @attendance_overtime_sum = Attendance.where(overtime_request_superior: @user.name, request_overtime_status: "申請中").count
-    respond_to do |format|
-        format.html
-        format.csv do |csv|
-          send_attendances_csv(@attendances)
-      end
-    end   
+     @worked_sum = @attendances.where.not(started_at:nil).count
+     @superiors = User.where(superior: true).where.not(id: @user.id)
+     @one_month_approval_sum = Attendance.where(one_month_request_boss: @user.name, one_month_request_status: "申請中").count
+     @attendances_sum = Attendance.where(attendances_request_superiors: @user.name, attendance_approval_status: "申請中").count
+     @attendance_overtime_sum = Attendance.where(overtime_request_superior: @user.name, request_overtime_status: "申請中").count
+     respond_to do |format|
+       format.html
+       format.csv do |csv|
+         send_attendances_csv(@attendances)
+       end
+     end   
    end
-  
   
    def new
      @user = User.new

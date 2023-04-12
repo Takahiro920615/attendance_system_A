@@ -85,6 +85,8 @@ class AttendancesController < ApplicationController
   def edit_one_month
     @superiors = User.where(superior: true).where.not(id: @user.id)
   end
+   
+  
   
 #社員による勤怠情報の修正
    def update_one_month
@@ -106,8 +108,6 @@ class AttendancesController < ApplicationController
            attendance.attendance_approval_status = "申請中"
            a_count += 1
            attendance.update!(item)
-          
-          
          end
         end
          
@@ -181,7 +181,7 @@ class AttendancesController < ApplicationController
         a_count += 1
         attendance.update(item)
        end
-       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:false, next_day: nil, change: nil) if item[:attendances_approval_status] == "なし"
+       attendance.update(after_started_at: nil, after_finished_at: nil, note: nil, attendances_approval_status: nil,attendance_approval_check:false, next_day: nil ,change:false) if item[:attendances_approval_status] == "なし"
      end 
    end       
    if a_count > 0
@@ -250,7 +250,7 @@ class AttendancesController < ApplicationController
   private
   
    def attendances_params
-      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors])[:attendances]
+      params.require(:user).permit(attendances: [:note, :before_started_at, :before_finished_at, :after_started_at, :after_finished_at, :attendances_request_superiors, :change])[:attendances]
    end 
    
    #残業申請内容のストロングパラメーター
@@ -259,7 +259,7 @@ class AttendancesController < ApplicationController
    end
    
    def overtime_approval_params
-     params.require(:user).permit(attendances: [:request_overtime_status,:overtime_check])[:attendances]
+     params.require(:user).permit(attendances: [:request_overtime_status,:overtime_check,:change])[:attendances]
    end
 
    # 勤怠情報修正承認・否認時のストロングパラメーター

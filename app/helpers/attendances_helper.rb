@@ -11,12 +11,12 @@ module AttendancesHelper
     end 
     
     def working_times(after_finished_at,after_started_at,change)
-        if change == "1" 
-          format("%.2f",((after_finished_at.tomorrow - after_started_at)/3600.0))
+        if change == true
+          format("%.2f",24+((after_finished_at.hour - after_started_at.hour)))
         else
-          format("%.2f",((after_finished_at - after_started_at)/60.0)/60.0)
-            
+          format("%.2f",((after_finished_at.hour - after_started_at.hour)))
         end
+     
     end
     
     #残業時間のフォーマット
